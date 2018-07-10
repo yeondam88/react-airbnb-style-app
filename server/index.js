@@ -20,10 +20,6 @@ const app = express();
 
 app.use("/api/v1/rentals", rentalRoutes);
 
-app.get("/rentals", (req, res) => {
-  res.json({ success: true });
-});
-
 const PORT = process.env.PORT || 3001;
 
 app.listen(PORT, () => console.log(`Server is running at ${PORT}`));
