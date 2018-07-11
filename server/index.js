@@ -5,6 +5,7 @@ const FakeDb = require("./fake-db");
 const Rental = require("./models/rental");
 
 const rentalRoutes = require("./routes/rentals");
+const userRoute = require("./routes/users");
 
 mongoose
   .connect(
@@ -19,6 +20,7 @@ mongoose
 const app = express();
 
 app.use("/api/v1/rentals", rentalRoutes);
+app.use("/api/v1/users", userRoutes);
 
 const PORT = process.env.PORT || 3001;
 
