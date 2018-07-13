@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const { normalizeErrors } = require("../helpers/mongoose");
 
 exports.auth = (req, res) => {};
 
@@ -27,9 +28,7 @@ exports.register = (req, res) => {
     },
     (err, existingUser) => {
       if (err) {
-        return res.status(422).send({
-          mongoose: "handle mongoose errors in next"
-        });
+        return res.status(422).send({ errors: normalizeErrors(err.errors) });
       }
       if (existingUser) {
         return res.status(422).send({
@@ -50,7 +49,7 @@ exports.register = (req, res) => {
 
       user.save(err => {
         if (err) {
-          return res.status(422).send(`There is an error ${err}`);
+          return res.status(422).send({ errors: normalizeErrors(err.errors) });
         }
 
         return res.json({ registered: true });
