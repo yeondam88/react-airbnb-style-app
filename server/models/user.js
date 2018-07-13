@@ -31,6 +31,10 @@ const userSchema = new Schema({
   ]
 });
 
+userSchema.methods.isSamePassword = function(requestedPassword) {
+  return bcrypt.compareSync(requestedPassword, this.password);
+};
+
 userSchema.pre("save", function(next) {
   const user = this;
 
