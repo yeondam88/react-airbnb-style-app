@@ -50,16 +50,11 @@ exports.register = (req, res) => {
 
       user.save(err => {
         if (err) {
-          return res.status(422).send("mmmm");
+          return res.status(422).send(`There is an error ${err}`);
         }
 
-        return res.json({ resgister: true });
+        return res.json({ registered: true });
       });
     }
   );
-
-  res.json({
-    username,
-    email
-  });
 };
