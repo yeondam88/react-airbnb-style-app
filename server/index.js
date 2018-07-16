@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const config = require("./config/dev");
 const FakeDb = require("./fake-db");
-const Rental = require("./models/rental");
 
 const rentalRoutes = require("./routes/rentals");
 const userRoutes = require("./routes/users");
@@ -15,7 +14,7 @@ mongoose
   )
   .then(() => {
     const fakeDb = new FakeDb();
-    fakeDb.seedDb();
+    // fakeDb.seedDb();
   });
 
 const app = express();
