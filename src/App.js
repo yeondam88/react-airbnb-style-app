@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Header from "./shared/Header";
 import RentalList from "./components/rental/RentalList";
+import RentalDetail from "./components/rental/RentalDetail";
 
 import "./App.css";
 
@@ -11,6 +12,7 @@ class App extends Component {
         <Header />
         <div className="container">
           <RentalList />
+          <RentalDetail />
         </div>
       </div>
     );

@@ -1,7 +1,7 @@
 import React from "react";
 
 const RentalCard = props => (
-  <div className="col-md-3 col-xs-6">
+  <div className={props.colNum}>
     <div className="card bwm-card">
       <img
         src="http://via.placeholder.com/350x250"

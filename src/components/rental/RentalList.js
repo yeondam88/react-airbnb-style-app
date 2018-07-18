@@ -7,17 +7,8 @@ class RentalList extends Component {
   };
 
   renderRentals = () => {
-    return this.state.rentals.map(rental => {
-      return <RentalCard />;
-    });
-  };
-
-  addRental = () => {
-    const rentals = this.state.rentals;
-    rentals.push(1);
-
-    this.setState({
-      rentals
+    return this.state.rentals.map((rental, index) => {
+      return <RentalCard key={index} colNum="col-md-3 col-xs-6" />;
     });
   };
 
@@ -26,7 +17,6 @@ class RentalList extends Component {
       <section id="rentalListing">
         <h1 className="page-title">Your Home All Around the World</h1>
         <div className="row">{this.renderRentals()}</div>
-        <button onClick={this.addRental}>Add Rental!</button>
       </section>
     );
   }
