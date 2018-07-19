@@ -1,17 +1,18 @@
 import React from "react";
 
-const RentalCard = props => (
-  <div className={props.colNum}>
+const RentalCard = ({ colNum, rental }) => (
+  <div className={colNum}>
     <div className="card bwm-card">
-      <img
-        src="http://via.placeholder.com/350x250"
-        alt=""
-        className="card-img-top"
-      />
+      <img src={rental.image} alt="" className="card-img-top" />
       <div className="card-block">
-        <h6 className="card-subtitle">Whole Apartment &#183; New York</h6>
-        <h4 className="card-title">Some nice apartment</h4>
-        <p className="card-text">$240 per night &#183; Free Cancelation</p>
+        <h6 className="card-subtitle">
+          {rental.shared ? "shared" : "whole"} {rental.category} &#183;{" "}
+          {rental.city}
+        </h6>
+        <h4 className="card-title">{rental.title}</h4>
+        <p className="card-text">
+          ${rental.dailyRate} per night &#183; Free Cancelation
+        </p>
         <a href="" className="card-link">
           More Info
         </a>
