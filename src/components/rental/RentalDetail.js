@@ -14,7 +14,9 @@ class RentalDetail extends Component {
       <div>
         <h1>Rental Detail!!!</h1>
         <p>{rental.title}</p>
-        <p>{rental.dailyRate}</p>
+        <p>{rental.city}</p>
+        <p>{rental.description}</p>
+        <p>per night ${rental.dailyRate}</p>
       </div>
     );
   }
