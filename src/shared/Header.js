@@ -1,11 +1,12 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 const Header = () => (
   <nav className="navbar navbar-dark navbar-expand-lg">
     <div className="container">
-      <a href="" className="navbar-brand">
+      <Link to="/" className="navbar-brand">
         BookWithMe
-      </a>
+      </Link>
       <form action="" className="form-inline my-2 my-lg-0">
         <input
           type="search"
