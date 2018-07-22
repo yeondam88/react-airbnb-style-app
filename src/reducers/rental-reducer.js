@@ -2,7 +2,7 @@ import {
   FETCH_RENTALS,
   FETCH_RENTAL_BY_ID_SUCCESS,
   FETCH_RENTAL_BY_ID_INIT
-} from "../actions/types";
+} from "actions/types";
 
 const initialState = {
   rentals: {
