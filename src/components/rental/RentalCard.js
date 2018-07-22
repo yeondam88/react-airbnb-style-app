@@ -5,11 +5,7 @@ const RentalCard = ({ colNum, rental }) => (
   <div className={colNum}>
     <Link className="rental-detail-link" to={`/rentals/${rental.id}`}>
       <div className="card bwm-card">
-        <img
-          src={rental.image}
-          alt="Rental Main Image"
-          className="card-img-top"
-        />
+        <img src={rental.image} alt={rental.title} className="card-img-top" />
         <div className="card-block">
           <h6 className={`card-subtitle ${rental.category}`}>
             {rental.shared ? "shared" : "whole"} {rental.category} &#183;{" "}

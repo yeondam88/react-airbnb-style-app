@@ -1,6 +1,5 @@
 import {
   FETCH_RENTALS,
-  FETCH_RENTAL_BY_ID,
   FETCH_RENTAL_BY_ID_SUCCESS,
   FETCH_RENTAL_BY_ID_INIT
 } from "./types";
@@ -78,7 +77,7 @@ export const fetchRentalById = id => dispatch => {
   dispatch(fetchRentalByIdInit());
   setTimeout(() => {
     const rental = rentals.find(rental => {
-      return rental.id == id;
+      return rental.id === id;
     });
     dispatch(fetchRentalByIdSuccess(rental));
   }, 1000);

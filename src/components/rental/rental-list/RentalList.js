@@ -1,13 +1,7 @@
 import React, { Component } from "react";
 import RentalCard from "../RentalCard";
-import { connect } from "react-redux";
-import { fetchRentals } from "actions";
 
 class RentalList extends Component {
-  componentDidMount() {
-    this.props.fetchRentals();
-  }
-
   renderRentals = () => {
     return this.props.rentals.map((rental, index) => {
       return (
@@ -17,24 +11,8 @@ class RentalList extends Component {
   };
 
   render() {
-    return (
-      <section id="rentalListing">
-        <h1 className="page-title">Your Home All Around the World</h1>
-        <div className="row">{this.renderRentals()}</div>
-      </section>
-    );
+    return <div className="row">{this.renderRentals()}</div>;
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    rentals: state.rentals.data
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  {
-    fetchRentals
-  }
-)(RentalList);
+export default RentalList;
