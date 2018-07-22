@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchRentalById } from "../../actions";
+import { fetchRentalById } from "../../../actions";
 
 class RentalDetail extends Component {
   componentDidMount() {
