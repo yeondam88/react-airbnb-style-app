@@ -1,6 +1,5 @@
 import axios from "axios";
 import {
-  FETCH_RENTALS,
   FETCH_RENTAL_BY_ID_SUCCESS,
   FETCH_RENTAL_BY_ID_INIT,
   FETCH_RENTALS_SUCCESS
