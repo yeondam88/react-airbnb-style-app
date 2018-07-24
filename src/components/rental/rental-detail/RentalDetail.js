@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchRentalById } from "actions";
+import { MapWithAMarker } from "components/map/GoogleMap";
 
 import RentalDetailInfo from "./RentalDetailInfo";
 
@@ -21,7 +22,12 @@ class RentalDetail extends Component {
                 <img src={rental.image} alt="" />
               </div>
               <div className="col-md-6">
-                <img src={rental.image} alt="" />
+                <MapWithAMarker
+                  googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyDym52aogc--qUUxVq_vCHgnV1c8MZaHeU&libraries=geometry,drawing,places"
+                  loadingElement={<div style={{ height: `100%` }} />}
+                  containerElement={<div style={{ height: `360px` }} />}
+                  mapElement={<div style={{ height: `100%` }} />}
+                />
               </div>
             </div>
           </div>
