@@ -2,7 +2,13 @@
   "name": "react-airbnb-style-app",
   "version": "0.1.0",
   "private": true,
+  "proxy": {
+    "api/v1/*": {
+      "target": "http://localhost:3001"
+    }
+  },
   "dependencies": {
+    "axios": "^0.18.0",
     "bcrypt": "^3.0.0",
     "body-parser": "^1.18.3",
     "bootstrap": "^4.0.0",
