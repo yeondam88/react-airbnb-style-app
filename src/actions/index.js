@@ -21,15 +21,17 @@ const fetchRentalsSuccess = rentals => ({
 });
 
 export const fetchRentals = () => dispatch => {
-  axios.get("http://localhost:3001/api/v1/rentals").then(rentals => {
-    dispatch(fetchRentalsSuccess(rentals.data));
-  });
+  axios
+    .get("http://localhost:3001/api/v1/rentals")
+    .then(res => res.data)
+    .then(rentals => dispatch(fetchRentalsSuccess(rentals)));
 };
 
 export const fetchRentalById = id => dispatch => {
   dispatch(fetchRentalByIdInit());
 
-  axios.get(`/api/v1/rentals/${id}`).then(rental => {
-    dispatch(fetchRentalByIdSuccess(rental));
-  });
+  axios
+    .get(`http://localhost:3001/api/v1/rentals/${id}`)
+    .then(res => res.data)
+    .then(rental => dispatch(fetchRentalByIdSuccess(rental)));
 };

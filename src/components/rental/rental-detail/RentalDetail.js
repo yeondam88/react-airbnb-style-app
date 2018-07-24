@@ -9,8 +9,8 @@ class RentalDetail extends Component {
   }
 
   render() {
-    const rental = this.props.rental;
-    if (rental.id) {
+    const { rental } = this.props;
+    if (rental._id) {
       return (
         <div>
           <h1>Rental Detail!!!</h1>

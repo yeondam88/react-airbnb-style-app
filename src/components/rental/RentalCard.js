@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const RentalCard = ({ colNum, rental }) => (
   <div className={colNum}>
-    <Link className="rental-detail-link" to={`/rentals/${rental.id}`}>
+    <Link className="rental-detail-link" to={`/rentals/${rental._id}`}>
       <div className="card bwm-card">
         <img src={rental.image} alt={rental.title} className="card-img-top" />
         <div className="card-block">
@@ -15,9 +15,9 @@ const RentalCard = ({ colNum, rental }) => (
           <p className="card-text">
             ${rental.dailyRate} per night &#183; Free Cancelation
           </p>
-          <a href="" className="card-link">
+          <div href="" className="card-link">
             More Info
-          </a>
+          </div>
         </div>
       </div>
     </Link>
