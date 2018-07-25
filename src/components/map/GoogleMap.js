@@ -29,17 +29,12 @@ const withGeoCode = WrappedComponent => {
     }
 
     componentDidMount() {
-      this.geoCodeLocation();
+      this.getGeocodedLocation();
     }
 
-    geoCodeLocation = () => {
-      const { location } = this.props;
+    geocodeLocation = location => {
       const geocoder = new window.google.maps.Geocoder();
-
-      // if location is cached return cached values
-      if (this.cacher.isValueCached(location)) {
-        // else geocode location
-      } else {
+      return new Promise((resolve, reject) => {
         geocoder.geocode({ address: location }, (result, status) => {
           if (status === "OK") {
             const geometry = result[0].geometry.location;
@@ -47,16 +42,34 @@ const withGeoCode = WrappedComponent => {
               lat: geometry.lat(),
               lng: geometry.lng()
             };
-
             this.cacher.cacheValue(location, coordinates);
+            resolve(coordinates);
+          } else {
+            reject("Error!!!");
+          }
+        });
+      });
+    };
 
-            console.log(this.cacher);
-
+    getGeocodedLocation = () => {
+      const { location } = this.props;
+      // if location is cached return cached values
+      if (this.cacher.isValueCached(location)) {
+        this.setState({
+          coordinates: this.cacher.getCachedValue(location)
+        });
+        // else geocode location
+      } else {
+        this.geocodeLocation(location).then(
+          coordinates => {
             this.setState({
               coordinates
             });
+          },
+          error => {
+            console.error(error);
           }
-        });
+        );
       }
     };
 
