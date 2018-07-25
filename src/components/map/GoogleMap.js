@@ -1,5 +1,4 @@
 import React from "react";
-
 import {
   withScriptjs,
   withGoogleMap,
@@ -7,6 +6,8 @@ import {
   Marker,
   Circle
 } from "react-google-maps";
+
+import Cacher from "../../services/cacher";
 
 const MapComponent = ({ coordinates }) => (
   <GoogleMap defaultZoom={13} defaultCenter={coordinates} center={coordinates}>
@@ -16,12 +17,16 @@ const MapComponent = ({ coordinates }) => (
 
 const withGeoCode = WrappedComponent => {
   return class extends React.Component {
-    state = {
-      coordinates: {
-        lat: 0,
-        lng: 0
-      }
-    };
+    constructor() {
+      super();
+      this.cacher = new Cacher();
+      this.state = {
+        coordinates: {
+          lat: 0,
+          lng: 0
+        }
+      };
+    }
 
     componentDidMount() {
       this.geoCodeLocation();
@@ -31,19 +36,28 @@ const withGeoCode = WrappedComponent => {
       const { location } = this.props;
       const geocoder = new window.google.maps.Geocoder();
 
-      geocoder.geocode({ address: location }, (result, status) => {
-        if (status === "OK") {
-          const geometry = result[0].geometry.location;
-          const coordinates = {
-            lat: geometry.lat(),
-            lng: geometry.lng()
-          };
+      // if location is cached return cached values
+      if (this.cacher.isValueCached(location)) {
+        // else geocode location
+      } else {
+        geocoder.geocode({ address: location }, (result, status) => {
+          if (status === "OK") {
+            const geometry = result[0].geometry.location;
+            const coordinates = {
+              lat: geometry.lat(),
+              lng: geometry.lng()
+            };
 
-          this.setState({
-            coordinates
-          });
-        }
-      });
+            this.cacher.cacheValue(location, coordinates);
+
+            console.log(this.cacher);
+
+            this.setState({
+              coordinates
+            });
+          }
+        });
+      }
     };
 
     render() {
