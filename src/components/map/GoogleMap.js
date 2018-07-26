@@ -3,15 +3,27 @@ import {
   withScriptjs,
   withGoogleMap,
   GoogleMap,
-  Marker,
+  InfoWindow,
   Circle
 } from "react-google-maps";
 
 import Cacher from "../../services/cacher";
 
-const MapComponent = ({ coordinates }) => (
+const MapComponent = ({ coordinates, isError, isLocationLoaded }) => (
   <GoogleMap defaultZoom={13} defaultCenter={coordinates} center={coordinates}>
-    <Circle center={coordinates} radius={500} />
+    {isLocationLoaded &&
+      !isError && <Circle center={coordinates} radius={500} />}
+    {isLocationLoaded &&
+      isError && (
+        <InfoWindow position={coordinates}>
+          <div>
+            Oooh, there is problem to find location on the map, we are trying to
+            resolve problem as fast as possible. Contact host for additional
+            information if you are still interested in booking this place. We
+            are sorry for inconveniance.
+          </div>
+        </InfoWindow>
+      )}
   </GoogleMap>
 );
 
@@ -24,7 +36,9 @@ const withGeoCode = WrappedComponent => {
         coordinates: {
           lat: 0,
           lng: 0
-        }
+        },
+        isError: false,
+        isLocationLoaded: false
       };
     }
 
@@ -56,18 +70,20 @@ const withGeoCode = WrappedComponent => {
       // if location is cached return cached values
       if (this.cacher.isValueCached(location)) {
         this.setState({
-          coordinates: this.cacher.getCachedValue(location)
+          coordinates: this.cacher.getCachedValue(location),
+          isLocationLoaded: true
         });
         // else geocode location
       } else {
         this.geocodeLocation(location).then(
           coordinates => {
             this.setState({
-              coordinates
+              coordinates,
+              isLocationLoaded: true
             });
           },
           error => {
-            console.error(error);
+            this.setState({ isError: true, isLocationLoaded: true });
           }
         );
       }
