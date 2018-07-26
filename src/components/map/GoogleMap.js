@@ -15,7 +15,7 @@ const MapComponent = ({ coordinates, isError, isLocationLoaded }) => (
       !isError && <Circle center={coordinates} radius={500} />}
     {isLocationLoaded &&
       isError && (
-        <InfoWindow position={coordinates}>
+        <InfoWindow position={coordinates} options={{ maxWidth: 300 }}>
           <div>
             Oooh, there is problem to find location on the map, we are trying to
             resolve problem as fast as possible. Contact host for additional
