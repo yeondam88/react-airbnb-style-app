@@ -10,7 +10,12 @@ import {
 import Cacher from "../../services/cacher";
 
 const MapComponent = ({ coordinates, isError, isLocationLoaded }) => (
-  <GoogleMap defaultZoom={13} defaultCenter={coordinates} center={coordinates}>
+  <GoogleMap
+    defaultZoom={13}
+    defaultCenter={coordinates}
+    center={coordinates}
+    options={{ disableDefaultUI: isError ? true : false }}
+  >
     {isLocationLoaded &&
       !isError && <Circle center={coordinates} radius={500} />}
     {isLocationLoaded &&
@@ -46,6 +51,13 @@ const withGeoCode = WrappedComponent => {
       this.getGeocodedLocation();
     }
 
+    updateCoordinates = coordinates => {
+      this.setState({
+        coordinates,
+        isLocationLoaded: true
+      });
+    };
+
     geocodeLocation = location => {
       const geocoder = new window.google.maps.Geocoder();
       return new Promise((resolve, reject) => {
@@ -69,18 +81,12 @@ const withGeoCode = WrappedComponent => {
       const { location } = this.props;
       // if location is cached return cached values
       if (this.cacher.isValueCached(location)) {
-        this.setState({
-          coordinates: this.cacher.getCachedValue(location),
-          isLocationLoaded: true
-        });
+        this.updateCoordinates(this.cacher.getCachedValue(location));
         // else geocode location
       } else {
         this.geocodeLocation(location).then(
           coordinates => {
-            this.setState({
-              coordinates,
-              isLocationLoaded: true
-            });
+            this.updateCoordinates(coordinates);
           },
           error => {
             this.setState({ isError: true, isLocationLoaded: true });
