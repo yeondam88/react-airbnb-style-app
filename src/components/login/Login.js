@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import LoginForm from "./LoginForm";
 import { login } from "actions";
+import { connect } from "react-redux";
 
 class Login extends Component {
   loginUser = userData => {
     console.log(userData);
-    login(userData);
+    this.props.login(userData);
   };
 
   render() {
@@ -32,4 +33,11 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(
+  mapStateToProps,
+  { login }
+)(Login);
