@@ -5,18 +5,27 @@ import { register } from "actions";
 
 class Register extends Component {
   state = {
-    errors: []
+    errors: [],
+    redirect: false
   };
 
   registerUser = userData => {
     register(userData).then(
-      registered => {},
+      registered => this.setState({ redirect: true }),
       errors => this.setState({ errors })
     );
   };
 
   render() {
-    const { errors } = this.state;
+    const { errors, redirect } = this.state;
+
+    if (redirect) {
+      return (
+        <Redirect
+          to={{ pathname: "/login", state: { successRegister: true } }}
+        />
+      );
+    }
 
     return (
       <section id="register">
