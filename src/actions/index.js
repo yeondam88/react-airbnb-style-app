@@ -5,6 +5,8 @@ import {
   FETCH_RENTALS_SUCCESS
 } from "./types";
 
+// RENTALS ACTIONS -------------------------------
+
 const fetchRentalByIdInit = () => ({
   type: FETCH_RENTAL_BY_ID_INIT
 });
@@ -33,4 +35,12 @@ export const fetchRentalById = id => dispatch => {
     .get(`http://localhost:3001/api/v1/rentals/${id}`)
     .then(res => res.data)
     .then(rental => dispatch(fetchRentalByIdSuccess(rental)));
+};
+
+// AUTH ACTIONS -------------------------------
+
+export const register = userData => {
+  return axios
+    .post("http://localhost:3001/api/v1/users/register", { ...userData })
+    .then(res => res.data, error => Promise.reject(error.response.data.errors));
 };
