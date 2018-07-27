@@ -2,29 +2,17 @@ import React from "react";
 import { Field, reduxForm } from "redux-form";
 
 const RegisterForm = props => {
-  const { handleSubmit, pristine, reset, submitting } = props;
+  const { handleSubmit, pristine, reset, submitting, submitCb } = props;
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit(submitCb)}>
       <div>
-        <label>First Name</label>
+        <label>Username</label>
         <div>
           <Field
             name="firstName"
             component="input"
             type="text"
-            placeholder="First Name"
-            className="form-control"
-          />
-        </div>
-      </div>
-      <div>
-        <label>Last Name</label>
-        <div>
-          <Field
-            name="lastName"
-            component="input"
-            type="text"
-            placeholder="Last Name"
+            placeholder="Username"
             className="form-control"
           />
         </div>
@@ -41,22 +29,37 @@ const RegisterForm = props => {
           />
         </div>
       </div>
-
+      <div>
+        <label>Password</label>
+        <div>
+          <Field
+            name="password"
+            component="input"
+            type="password"
+            placeholder="Password"
+            className="form-control"
+          />
+        </div>
+      </div>
+      <div>
+        <label>Confirmation Password</label>
+        <div>
+          <Field
+            name="passwordConfirmation"
+            component="input"
+            type="password"
+            className="form-control"
+            placeholder="Confirmation Password"
+          />
+        </div>
+      </div>
       <div>
         <button
           type="submit"
           disabled={pristine || submitting}
-          className="btn btn-success"
+          className="btn btn-bwm btn-form"
         >
           Submit
-        </button>
-        <button
-          type="button"
-          disabled={pristine || submitting}
-          onClick={reset}
-          className="btn btn-outline-warning"
-        >
-          Clear Values
         </button>
       </div>
     </form>
