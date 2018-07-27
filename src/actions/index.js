@@ -44,3 +44,9 @@ export const register = userData => {
     .post("http://localhost:3001/api/v1/users/register", { ...userData })
     .then(res => res.data, error => Promise.reject(error.response.data.errors));
 };
+
+export const login = userData => {
+  return axios
+    .post("http://localhost:3001/api/v1/users/auth", { ...userData })
+    .then(res => res.data, error => Promise.reject(error.response.data.errors));
+};
