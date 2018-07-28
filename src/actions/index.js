@@ -1,4 +1,5 @@
 import axios from "axios";
+import authService from "services/auth-service";
 import {
   FETCH_RENTAL_BY_ID_SUCCESS,
   FETCH_RENTAL_BY_ID_INIT,
@@ -49,8 +50,7 @@ export const register = userData => {
 
 const loginSuccess = token => {
   return {
-    type: LOGIN_SUCCESS,
-    token
+    type: LOGIN_SUCCESS
   };
 };
 
@@ -59,6 +59,12 @@ const loginFailure = errors => {
     type: LOGIN_FAILURE,
     errors
   };
+};
+
+export const checkAuthState = () => dispatch => {
+  if (authService.isAuthenticated()) {
+    dispatch(loginSuccess);
+  }
 };
 
 export const login = userData => dispatch => {

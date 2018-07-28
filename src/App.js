@@ -7,11 +7,21 @@ import RentalDetail from "components/rental/rental-detail/RentalDetail";
 import Register from "./components/register/Register";
 import Login from "./components/login/Login";
 
+import * as actions from "actions";
+
 import "App.css";
 
 const store = require("./reducers").init();
 
 class App extends Component {
+  componentWillMount() {
+    this.checkAuthState();
+  }
+
+  checkAuthState() {
+    store.dispatch(actions.checkAuthState());
+  }
+
   render() {
     return (
       <Provider store={store}>
