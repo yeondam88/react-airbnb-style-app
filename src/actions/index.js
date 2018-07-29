@@ -73,9 +73,9 @@ export const login = userData => dispatch => {
     .then(res => res.data)
     .then(token => {
       localStorage.setItem("auth_token", token);
-      dispatch(loginSuccess(token));
+      dispatch(loginSuccess());
     })
-    .catch(({ res }) => {
-      dispatch(loginFailure(res.data.errors));
+    .catch(({ response }) => {
+      dispatch(loginFailure(response.data.errors));
     });
 };

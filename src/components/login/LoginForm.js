@@ -33,6 +33,7 @@ const LoginForm = props => {
       >
         Login
       </button>
+      <BwmResErrors errors={errors} />
     </form>
   );
 };

@@ -35,7 +35,7 @@ exports.auth = (req, res) => {
         config.SECRET,
         { expiresIn: "1h" }
       );
-      return res.json(`Bearer ${token}`);
+      return res.json(token);
     } else {
       return res.status(422).send({
         errors: [{ title: "Wrong Data", detail: "Wrong email or password." }]

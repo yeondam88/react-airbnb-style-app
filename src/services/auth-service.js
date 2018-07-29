@@ -1,13 +1,17 @@
-import moment from "moment";
-import { decoded } from "jsonwebtoken";
+import * as moment from "moment";
+import * as jwt from "jsonwebtoken";
 
 class AuthService {
   getToken() {
     return localStorage.getItem("auth_token");
   }
 
+  decode(token) {
+    return jwt.decode(token);
+  }
+
   getExpiration(token) {
-    const exp = decoded(token).exp;
+    const { exp } = this.decode(token);
 
     return moment.unix(exp);
   }
