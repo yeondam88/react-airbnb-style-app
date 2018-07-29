@@ -69,13 +69,13 @@ export const checkAuthState = () => dispatch => {
 
 export const login = userData => dispatch => {
   return axios
-    .post("http://localhost:3001/api/v1/users/auth", { ...userData })
+    .post("http://localhost:3001/api/v1/users/auth", userData)
     .then(res => res.data)
     .then(token => {
       localStorage.setItem("auth_token", token);
       dispatch(loginSuccess());
     })
-    .catch(({ response }) => {
-      dispatch(loginFailure(response.data.errors));
+    .catch(({ response: { errors } }) => {
+      dispatch(loginFailure(errors));
     });
 };
