@@ -2,7 +2,9 @@ import * as moment from "moment";
 import * as jwt from "jsonwebtoken";
 
 class AuthService {
-  tokenKey = "auth_token";
+  constructor() {
+    this.tokenKey = "auth_token";
+  }
 
   getToken() {
     return localStorage.getItem(this.tokenKey);

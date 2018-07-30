@@ -1,5 +1,6 @@
 import axios from "axios";
 import authService from "services/auth-service";
+import axiosService from "services/axios-service";
 import {
   FETCH_RENTAL_BY_ID_SUCCESS,
   FETCH_RENTAL_BY_ID_INIT,
@@ -10,6 +11,8 @@ import {
 } from "./types";
 
 // RENTALS ACTIONS -------------------------------
+
+const axiosInstance = axiosService.getInstance();
 
 const fetchRentalByIdInit = () => ({
   type: FETCH_RENTAL_BY_ID_INIT
@@ -26,8 +29,8 @@ const fetchRentalsSuccess = rentals => ({
 });
 
 export const fetchRentals = () => dispatch => {
-  axios
-    .get("http://localhost:3001/api/v1/rentals")
+  axiosInstance
+    .get("/rentals")
     .then(res => res.data)
     .then(rentals => dispatch(fetchRentalsSuccess(rentals)));
 };
@@ -35,8 +38,8 @@ export const fetchRentals = () => dispatch => {
 export const fetchRentalById = id => dispatch => {
   dispatch(fetchRentalByIdInit());
 
-  axios
-    .get(`http://localhost:3001/api/v1/rentals/${id}`)
+  axiosInstance
+    .get(`/rentals/${id}`)
     .then(res => res.data)
     .then(rental => dispatch(fetchRentalByIdSuccess(rental)));
 };
@@ -44,8 +47,8 @@ export const fetchRentalById = id => dispatch => {
 // AUTH ACTIONS -------------------------------
 
 export const register = userData => {
-  return axios
-    .post("http://localhost:3001/api/v1/users/register", { ...userData })
+  return axiosInstance
+    .post("/users/register", { ...userData })
     .then(res => res.data, error => Promise.reject(error.response.data.errors));
 };
 
@@ -69,8 +72,8 @@ export const checkAuthState = () => dispatch => {
 };
 
 export const login = userData => dispatch => {
-  return axios
-    .post("http://localhost:3001/api/v1/users/auth", userData)
+  return axiosInstance
+    .post("/users/auth", userData)
     .then(res => res.data)
     .then(token => {
       authService.saveToken(token);
