@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Header = () => (
+const Header = ({ logout }) => (
   <nav className="navbar navbar-dark navbar-expand-lg">
     <div className="container">
       <Link to="/" className="navbar-brand">
@@ -40,6 +40,9 @@ const Header = () => (
           <Link to="/register" className="nav-item nav-link">
             Register
           </Link>
+          <p className="nav-item nav-link" onClick={logout}>
+            Logout
+          </p>
         </div>
       </div>
     </div>

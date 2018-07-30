@@ -5,7 +5,8 @@ import {
   FETCH_RENTAL_BY_ID_INIT,
   FETCH_RENTALS_SUCCESS,
   LOGIN_SUCCESS,
-  LOGIN_FAILURE
+  LOGIN_FAILURE,
+  LOG_OUT
 } from "./types";
 
 // RENTALS ACTIONS -------------------------------
@@ -72,10 +73,17 @@ export const login = userData => dispatch => {
     .post("http://localhost:3001/api/v1/users/auth", userData)
     .then(res => res.data)
     .then(token => {
-      localStorage.setItem("auth_token", token);
+      authService.saveToken(token);
       dispatch(loginSuccess());
     })
     .catch(({ response: { errors } }) => {
       dispatch(loginFailure(errors));
     });
+};
+
+export const logout = () => {
+  authService.invalidateUser();
+  return {
+    type: LOG_OUT
+  };
 };
