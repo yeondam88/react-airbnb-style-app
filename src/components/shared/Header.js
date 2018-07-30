@@ -1,30 +1,34 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 class Header extends Component {
-  renderAuthButtons() {
+  handleLogout = () => {
+    this.props.logout();
+    this.props.history.push("/login");
+  };
+
+  renderAuthButtons = () => {
     const {
-      logout,
       auth: { isAuth }
     } = this.props;
 
     if (isAuth) {
       return (
-        <a className="nav-item nav-link clickable" onClick={logout}>
+        <a className="nav-item nav-link clickable" onClick={this.handleLogout}>
           Logout
         </a>
       );
     }
     return [
-      <Link to="/login" className="nav-item nav-link active">
+      <Link key="loginLink" to="/login" className="nav-item nav-link active">
         Login <span className="sr-only">(current)</span>
       </Link>,
-      <Link to="/register" className="nav-item nav-link">
+      <Link key="registerLink" to="/register" className="nav-item nav-link">
         Register
       </Link>
     ];
-  }
+  };
 
   render() {
     return (
@@ -71,7 +75,9 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(
-  mapStateToProps,
-  null
-)(Header);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    null
+  )(Header)
+);

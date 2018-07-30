@@ -1,4 +1,3 @@
-import axios from "axios";
 import authService from "services/auth-service";
 import axiosService from "services/axios-service";
 import {
