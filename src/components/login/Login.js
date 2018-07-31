@@ -30,7 +30,7 @@ class Login extends Component {
                   </p>
                 </div>
               )}
-              <LoginForm submitCb={this.loginUser} errros={errors} />
+              <LoginForm submitCb={this.loginUser} errors={errors} />
             </div>
             <div className="col-md-6 ml-auto">
               <div className="image-container">
