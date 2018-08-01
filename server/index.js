@@ -7,6 +7,7 @@ const FakeDb = require("./fake-db");
 
 const rentalRoutes = require("./routes/rentals");
 const userRoutes = require("./routes/users");
+const bookingRoutes = require("./routes/booking");
 
 mongoose
   .connect(
@@ -25,6 +26,7 @@ app.use(cors());
 
 app.use("/api/v1/rentals", rentalRoutes);
 app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/bookings", bookingRoutes);
 
 const PORT = process.env.PORT || 3001;
 
