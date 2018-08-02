@@ -1,4 +1,5 @@
 import titleize from "titleize";
+import * as moment from "moment";
 
 export const rentalType = isShared => (isShared ? "shared" : "entire");
 export const toUpperCase = value => (value ? titleize(value) : "");
@@ -9,3 +10,18 @@ export const toUpperCase = value => (value ? titleize(value) : "");
 //   });
 //   return capitalized;
 // };
+
+export const getRangeOfDates = (startAt, endAt, dateFormat) => {
+  const tempDates = [];
+  const momentEndAt = moment(endAt);
+  let momentStartAt = moment(startAt);
+
+  while (momentStartAt < momentEndAt) {
+    tempDates.push(momentStartAt.format(dateFormat));
+    momentStartAt = momentStartAt.add(1, "day");
+  }
+
+  tempDates.push(momentEndAt.format(dateFormat));
+
+  return tempDates;
+};

@@ -17,7 +17,6 @@ const store = require("./reducers").init();
 
 class App extends Component {
   componentWillMount() {
-    console.log("CheckAuthState -> ", store.getState());
     this.checkAuthState();
   }
 
