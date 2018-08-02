@@ -2,15 +2,22 @@ import React from "react";
 import DateRangePicker from "react-bootstrap-daterangepicker";
 import { getRangeOfDates } from "helpers";
 import * as moment from "moment";
-import { throws } from "assert";
+import BookingModal from "./BookingModal";
 
 class Booking extends React.Component {
   state = {
-    startAt: "",
-    endAt: "",
-    guests: 0,
-    errors: "",
-    isErrors: false
+    proposedBooking: {
+      startAt: "",
+      endAt: "",
+      guests: 0
+    },
+    modal: {
+      open: false
+    },
+    error: {
+      message: "",
+      isError: false
+    }
   };
   bookedOutDates = [];
   dateRef = React.createRef();
@@ -48,34 +55,56 @@ class Booking extends React.Component {
     this.dateRef.current.value = `${startAt} to ${endAt}`;
 
     this.setState({
-      startAt,
-      endAt
+      proposedBooking: {
+        startAt,
+        endAt
+      }
     });
   };
 
   selectGuests = event => {
-    const { guests } = this.state;
+    const {
+      proposedBooking: { guests }
+    } = this.state;
     const { rental } = this.props;
 
     this.setState({
-      guests: parseInt(event.target.value)
+      proposedBooking: {
+        guests: parseInt(event.target.value)
+      }
     });
 
     if (guests >= rental.bedrooms + 4) {
       this.setState({
-        errors: `You can not have more than ${rental.bedrooms + 4} people.`,
-        isErrors: true
+        error: {
+          message: `You can not have more than ${rental.bedrooms + 4} people.`,
+          isError: true
+        }
       });
     } else {
       this.setState({
-        errors: "",
-        isErrors: false
+        error: {
+          message: "",
+          isError: false
+        }
       });
     }
   };
 
-  handleReserveButton = () => {
-    console.log(this.state);
+  cancelConfirmation = () => {
+    this.setState({
+      modal: {
+        open: false
+      }
+    });
+  };
+
+  confirmProposedData = () => {
+    this.setState({
+      modal: {
+        open: true
+      }
+    });
   };
 
   render() {
@@ -108,20 +137,20 @@ class Booking extends React.Component {
           <label htmlFor="guests">Guests</label>
           <input
             onChange={this.selectGuests}
-            value={this.state.guests}
+            value={this.state.proposedBooking.guests}
             type="number"
             className="form-control"
             id="guests"
             aria-describedby="guests"
             placeholder=""
           />
-          {this.state.errors ? (
-            <p className="alert alert-danger">{this.state.errors}</p>
+          {this.state.error.message ? (
+            <p className="alert alert-danger">{this.state.error.message}</p>
           ) : null}
         </div>
         <button
-          disabled={this.state.isErrors}
-          onClick={this.handleReserveButton}
+          disabled={this.state.error.isError}
+          onClick={this.confirmProposedData}
           className="btn btn-bwm btn-confirm btn-block"
         >
           Reserve place now
@@ -133,6 +162,11 @@ class Booking extends React.Component {
         <p className="booking-note-text">
           More than 500 people checked this rental in last month.
         </p>
+        <BookingModal
+          open={this.state.modal.open}
+          closeModal={this.cancelConfirmation}
+          proposedBooking={this.state.proposedBooking}
+        />
       </div>
     );
   }
