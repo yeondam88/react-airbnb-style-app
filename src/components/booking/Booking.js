@@ -9,7 +9,8 @@ class Booking extends React.Component {
     proposedBooking: {
       startAt: "",
       endAt: "",
-      guests: 0
+      guests: 0,
+      rental: {}
     },
     modal: {
       open: false
@@ -56,6 +57,7 @@ class Booking extends React.Component {
 
     this.setState({
       proposedBooking: {
+        ...this.state.proposedBooking,
         startAt,
         endAt
       }
@@ -70,6 +72,7 @@ class Booking extends React.Component {
 
     this.setState({
       proposedBooking: {
+        ...this.state.proposedBooking,
         guests: parseInt(event.target.value)
       }
     });
@@ -100,7 +103,17 @@ class Booking extends React.Component {
   };
 
   confirmProposedData = () => {
+    const { startAt, endAt } = this.state.proposedBooking;
+    const days = getRangeOfDates(startAt, endAt).length - 1;
+    const { rental } = this.props;
+
     this.setState({
+      proposedBooking: {
+        ...this.state.proposedBooking,
+        days,
+        totalPrice: days * rental.dailyRate,
+        rental
+      },
       modal: {
         open: true
       }
@@ -109,6 +122,7 @@ class Booking extends React.Component {
 
   render() {
     const { rental } = this.props;
+    const { startAt, endAt, guests } = this.state.proposedBooking;
 
     return (
       <div className="booking">
@@ -149,7 +163,7 @@ class Booking extends React.Component {
           ) : null}
         </div>
         <button
-          disabled={this.state.error.isError}
+          disabled={!startAt || !endAt || !guests || this.state.error.isError}
           onClick={this.confirmProposedData}
           className="btn btn-bwm btn-confirm btn-block"
         >
@@ -165,7 +179,7 @@ class Booking extends React.Component {
         <BookingModal
           open={this.state.modal.open}
           closeModal={this.cancelConfirmation}
-          proposedBooking={this.state.proposedBooking}
+          booking={this.state.proposedBooking}
         />
       </div>
     );
