@@ -4,6 +4,7 @@ import { getRangeOfDates } from "helpers";
 import * as moment from "moment";
 import * as actions from "actions";
 import BookingModal from "./BookingModal";
+import { ToastContainer, toast } from "react-toastify";
 
 class Booking extends React.Component {
   state = {
@@ -140,6 +141,7 @@ class Booking extends React.Component {
         this.addNewBookedOutDates(booking);
         this.cancelConfirmation();
         this.resetData();
+        toast.success("Booking has been successfully created. Enjoy!");
       },
       errors => {
         this.setState({
@@ -155,6 +157,7 @@ class Booking extends React.Component {
 
     return (
       <div className="booking">
+        <ToastContainer />
         <h3 className="booking-price">
           ${rental.dailyRate}
           <span className="booking-per-night"> per night</span>
