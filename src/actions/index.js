@@ -47,7 +47,7 @@ export const fetchRentalById = id => dispatch => {
 
 export const register = userData => {
   return axiosInstance
-    .post("/users/register", { ...userData })
+    .post("/users/register", userData)
     .then(res => res.data, error => Promise.reject(error.response.data.errors));
 };
 
@@ -88,4 +88,13 @@ export const logout = () => {
   return {
     type: LOG_OUT
   };
+};
+
+// BOOKING ACTIONS -------------------------------
+
+export const createBooking = booking => {
+  return axiosInstance
+    .post("/bookings", booking)
+    .then(res => res.data)
+    .catch(({ response }) => Promise.reject(response.data.errors));
 };

@@ -2,6 +2,7 @@ import React from "react";
 import DateRangePicker from "react-bootstrap-daterangepicker";
 import { getRangeOfDates } from "helpers";
 import * as moment from "moment";
+import * as actions from "actions";
 import BookingModal from "./BookingModal";
 
 class Booking extends React.Component {
@@ -9,16 +10,16 @@ class Booking extends React.Component {
     proposedBooking: {
       startAt: "",
       endAt: "",
-      guests: 0,
-      rental: {}
+      guests: ""
     },
     modal: {
       open: false
     },
-    error: {
+    validate: {
       message: "",
-      isError: false
-    }
+      isValid: false
+    },
+    errors: []
   };
   bookedOutDates = [];
   dateRef = React.createRef();
@@ -79,16 +80,16 @@ class Booking extends React.Component {
 
     if (guests >= rental.bedrooms + 4) {
       this.setState({
-        error: {
+        validate: {
           message: `You can not have more than ${rental.bedrooms + 4} people.`,
-          isError: true
+          isValid: true
         }
       });
     } else {
       this.setState({
-        error: {
+        validate: {
           message: "",
-          isError: false
+          isValid: false
         }
       });
     }
@@ -99,6 +100,19 @@ class Booking extends React.Component {
       modal: {
         open: false
       }
+    });
+  };
+
+  addNewBookedOutDates = booking => {
+    const dateRange = getRangeOfDates(booking.startAt, booking.endAt);
+    this.bookedOutDates.push(...dateRange);
+  };
+
+  resetData = () => {
+    this.dateRef.current.value = "";
+
+    this.setState({
+      proposedBooking: { guests: "" }
     });
   };
 
@@ -118,6 +132,21 @@ class Booking extends React.Component {
         open: true
       }
     });
+  };
+
+  reserveRental = () => {
+    actions.createBooking(this.state.proposedBooking).then(
+      booking => {
+        this.addNewBookedOutDates(booking);
+        this.cancelConfirmation();
+        this.resetData();
+      },
+      errors => {
+        this.setState({
+          errors
+        });
+      }
+    );
   };
 
   render() {
@@ -151,19 +180,21 @@ class Booking extends React.Component {
           <label htmlFor="guests">Guests</label>
           <input
             onChange={this.selectGuests}
-            value={this.state.proposedBooking.guests}
+            value={guests}
             type="number"
             className="form-control"
             id="guests"
             aria-describedby="guests"
             placeholder=""
           />
-          {this.state.error.message ? (
-            <p className="alert alert-danger">{this.state.error.message}</p>
+          {this.state.validate.message ? (
+            <p className="alert alert-danger">{this.state.validate.message}</p>
           ) : null}
         </div>
         <button
-          disabled={!startAt || !endAt || !guests || this.state.error.isError}
+          disabled={
+            !startAt || !endAt || !guests || this.state.validate.isValid
+          }
           onClick={this.confirmProposedData}
           className="btn btn-bwm btn-confirm btn-block"
         >
@@ -180,6 +211,9 @@ class Booking extends React.Component {
           open={this.state.modal.open}
           closeModal={this.cancelConfirmation}
           booking={this.state.proposedBooking}
+          confirmModal={this.reserveRental}
+          errors={this.state.errors}
+          rentalPrice={rental.dailyRate}
         />
       </div>
     );
