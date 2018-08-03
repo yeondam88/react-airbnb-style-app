@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchRentalById } from "actions";
+import { ClipLoader } from "react-spinners";
 import RentalMap from "./RentalMap";
 import RentalDetailInfo from "./RentalDetailInfo";
 import Booking from "../../booking/Booking";
+import HeaderWithSearch from 'components/shared/HeaderWithSearch';
 
 class RentalDetail extends Component {
   componentDidMount() {
@@ -15,35 +17,53 @@ class RentalDetail extends Component {
     const { rental } = this.props;
     if (rental._id) {
       return (
-        <section id="rentalDetails">
-          <div className="upper-section">
-            <div className="row">
-              <div className="col-md-6">
-                <img src={rental.image} alt="" />
-              </div>
-              <div className="col-md-6">
-                <RentalMap location={`${rental.city}, ${rental.street}`} />
+        <React.Fragment>
+          <HeaderWithSearch />
+        <div className="container" style={{ marginTop: "80px" }}>
+          <section id="rentalDetails">
+            <div className="upper-section">
+              <div className="row">
+                <div className="col-md-6">
+                  <img src={rental.image} alt="" />
+                </div>
+                <div className="col-md-6">
+                  <RentalMap location={`${rental.city}, ${rental.street}`} />
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className="details-section">
-            <div className="row">
-              <div className="col-md-8">
-                <RentalDetailInfo rental={rental} />
-              </div>
-              <div className="col-md-4">
-                <Booking rental={rental} />
+            <div className="details-section">
+              <div className="row">
+                <div className="col-md-8">
+                  <RentalDetailInfo rental={rental} />
+                </div>
+                <div className="col-md-4">
+                  <Booking rental={rental} />
+                </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </div>
+        </React.Fragment>
+        
       );
     } else {
-      return <h1>loading...</h1>;
+      return (
+        <div style={style}>
+          <ClipLoader size={60} />
+        </div>
+      );
     }
   }
 }
+
+const style = {
+  width: "100%",
+  height: "100vh",
+  position: "absolute",
+  top: "50%",
+  left: "50%"
+};
 
 const mapStateToProps = state => {
   return {

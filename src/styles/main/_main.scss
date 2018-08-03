@@ -1,0 +1,47 @@
+.main-cover {
+  height: 100vh;
+  background-size: cover !important;
+  .search-container {
+    z-index: 1;
+    position: absolute;
+    height: 300px;
+    top: 50%;
+    width: 100%;
+    margin: 0 auto;
+    transform: translateY(-184px);
+    .content-area {
+      width: 44vw;
+      margin: 0 auto;
+      h1 {
+        font-size: 56px;
+        color: white;
+        line-height: 64px;
+        font-weight: 800 !important;
+        text-shadow: 1px 1px 40px rgba(22, 23, 31, 0.4) !important;
+      }
+    }
+  }
+}
+
+.form-container {
+  background: white;
+  height: 72px;
+  position: relative;
+  width: 100%;
+  z-index: 1;
+  box-shadow: 0 15px 46px rgba(26, 26, 29, 0.3), 0 15px 90px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  form {
+    height: 100%;
+    input {
+      background: transparent;
+      border: 0px;
+      margin: 0px;
+      width: 100%;
+      height: 100%;
+      font-size: 18px;
+      border-radius: 4px;
+      padding: 20px;
+    }
+  }
+}

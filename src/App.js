@@ -32,9 +32,7 @@ class App extends Component {
     return (
       <Provider store={store}>
         <BrowserRouter>
-          <div className="App">
-            <Header logout={this.logout} />
-            <div className="container">
+            <div className="App">
               <Route exact path="/" render={() => <Redirect to="/rentals" />} />
               <Route exact path="/rentals" component={RentalListing} />
               <ProtectedRoute
@@ -45,7 +43,6 @@ class App extends Component {
               <Route exact path="/login" component={Login} />
               <LoggedInRoute exact path="/register" component={Register} />
             </div>
-          </div>
         </BrowserRouter>
       </Provider>
     );
