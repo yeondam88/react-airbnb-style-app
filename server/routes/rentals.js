@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Rental = require("../models/rental");
+const User = require("../models/user");
 const { normalizeErrors } = require("../helpers/mongoose");
 const UserCtrl = require("../controllers/user");
 
@@ -28,34 +29,62 @@ router.get("/:id", (req, res) => {
 
 router.get("", (req, res) => {
   const city = req.query.city;
+  const query = city ? { city: city.toLowerCase() } : {};
 
-  if (city) {
-    Rental.find({ city: city.toLowerCase() })
-      .select("-bookings")
-      .exec((err, filteredRentals) => {
-        if (err) {
-          return res.status(422).send({ errors: normalizeErrors(err.errors) });
-        }
+  Rental.find(query)
+    .select("-bookings")
+    .exec((err, foundRentals) => {
+      if (err) {
+        return res.status(422).send({ errors: normalizeErrors(err.errors) });
+      }
 
-        if (filteredRentals.length === 0) {
-          return res.status(422).send({
-            errors: [
-              {
-                title: "No Rentals Found",
-                detail: `There are no rentals for city ${city}.`
-              }
-            ]
-          });
-        }
-        return res.json(filteredRentals);
-      });
-  } else {
-    Rental.find({})
-      .select("-bookings")
-      .exec((err, foundRentals) => {
-        return res.json(foundRentals);
-      });
-  }
+      if (city && foundRentals.length === 0) {
+        return res.status(422).send({
+          errors: [
+            {
+              title: "No Rentals Found",
+              detail: `There are no rentals for city ${city}.`
+            }
+          ]
+        });
+      }
+      return res.json(foundRentals);
+    });
+});
+
+router.post("", UserCtrl.authMiddleware, (req, res) => {
+  const {
+    title,
+    city,
+    street,
+    category,
+    image,
+    bedrooms,
+    shared,
+    description,
+    dailyRate
+  } = req.body;
+  const user = res.locals.user;
+
+  const rental = new Rental({
+    title,
+    city,
+    street,
+    category,
+    image,
+    bedrooms,
+    shared,
+    description,
+    dailyRate
+  });
+
+  Rental.create(rental, (err, newRental) => {
+    if (err) {
+      return res.status(422).send({ errors: normalizeErrors(err.errors) });
+    }
+    User.update({ _id: user.id }, { $push: { rentals: newRental } });
+    return res.json(newRental);
+  });
 });
 
 module.exports = router;
