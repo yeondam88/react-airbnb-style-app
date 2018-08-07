@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
+import RentalSearchInput from "components/rental/RentalSearchInput";
+
 class HeaderWithSearch extends Component {
   handleLogout = () => {
     this.props.logout();
@@ -32,25 +34,15 @@ class HeaderWithSearch extends Component {
 
   render() {
     return (
-      <nav className="navbar navbar-dark navbar-expand-lg" style={{ background: 'black' }}>
+      <nav
+        className="navbar navbar-dark navbar-expand-lg"
+        style={{ background: "black" }}
+      >
         <div className="container">
           <Link to="/" className="navbar-brand">
             BookWithMe
           </Link>
-          <form action="" className="form-inline my-2 my-lg-0">
-            <input
-              type="search"
-              className="form-control mr-sm-2 bwm-search"
-              placeholder="Try 'New York'"
-              aria-label="Search"
-            />
-            <button
-              className="btn btn-outline-success my-2 my-sm-0 btn-bwm-search"
-              type="submit"
-            >
-              Search
-            </button>
-          </form>
+          <RentalSearchInput />
           <button
             className="navbar-toggler"
             type="button"

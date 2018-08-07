@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Header from "components/shared/Header";
-import Main from "components/shared/Main";
+import HeaderWithSearch from "components/shared/HeaderWithSearch";
 import RentalList from "./RentalList";
 import axios from "axios";
 
@@ -16,6 +15,15 @@ class RentalSearchListing extends Component {
 
   componentWillMount() {
     this.searchRentalByCity();
+  }
+
+  componentDidUpdate(prevProps) {
+    const currentUrlParam = this.props.match.params.city;
+    const prevUrlParam = prevProps.match.params.city;
+
+    if (currentUrlParam !== prevUrlParam) {
+      this.searchRentalByCity();
+    }
   }
 
   searchRentalByCity = () => {
@@ -48,8 +56,7 @@ class RentalSearchListing extends Component {
     console.log(this.props);
     return (
       <React.Fragment>
-        <Header />
-        <Main />
+        <HeaderWithSearch />
         <div className="container" style={{ marginTop: "40px" }}>
           <section id="rentalListing">
             {this.renderTitle()}

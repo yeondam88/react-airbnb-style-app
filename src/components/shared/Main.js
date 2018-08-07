@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { fetchRentals } from "actions";
+import { withRouter } from "react-router-dom";
 
 const style = {
   background: `url(${process.env.PUBLIC_URL}/img/main-bg.jpg)`
@@ -11,6 +10,8 @@ class Main extends Component {
     searchTerm: ""
   };
 
+  searchInput = React.createRef();
+
   handleSearchInput = event => {
     this.setState({
       searchTerm: event.target.value
@@ -18,7 +19,10 @@ class Main extends Component {
   };
 
   handleSearchSubmit = () => {
-    this.props.fetchRentals(this.state.searchTerm);
+    const { history } = this.props;
+    const city = this.searchInput.current.value;
+
+    city ? history.push(`/rentals/${city}/homes`) : history.push("/rentals");
   };
 
   render() {
@@ -36,7 +40,7 @@ class Main extends Component {
                   className="search-box"
                   type="text"
                   placeholder="Try New York"
-                  onChange={this.handleSearchInput}
+                  ref={this.searchInput}
                 />
               </form>
             </div>
@@ -47,7 +51,4 @@ class Main extends Component {
   }
 }
 
-export default connect(
-  null,
-  { fetchRentals }
-)(Main);
+export default withRouter(Main);
