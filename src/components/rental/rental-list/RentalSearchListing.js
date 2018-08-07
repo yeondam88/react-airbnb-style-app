@@ -1,30 +1,59 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import Header from "components/shared/Header";
 import Main from "components/shared/Main";
 import RentalList from "./RentalList";
 import axios from "axios";
 
+import { fetchRentals } from "actions";
+import { toUpperCase } from "helpers";
+
 class RentalSearchListing extends Component {
   state = {
-    city: "",
+    searchedCity: "",
     rentals: []
   };
 
   componentWillMount() {
-    axios
-      .get(`http://localhost:3001/api/v1/rentals?city=new%20york`)
-      .then(response => this.setState({ rentals: response.data }));
+    this.searchRentalByCity();
   }
 
+  searchRentalByCity = () => {
+    const { city: searchedCity } = this.props.match.params;
+    this.setState({
+      searchedCity
+    });
+    this.props.fetchRentals(searchedCity);
+    axios
+      .get(`http://localhost:3001/api/v1/rentals?city=${searchedCity}`)
+      .then(response => this.setState({ rentals: response.data }));
+  };
+
+  renderTitle = () => {
+    const { errors, data } = this.props.rentals;
+    const { searchedCity } = this.state;
+    let title = "";
+
+    if (errors.length > 0) {
+      title = errors[0].detail;
+    }
+    if (data.length > 0) {
+      title = `Your home in city of ${toUpperCase(searchedCity)}.`;
+    }
+
+    return <h1 className="page-title">{title}</h1>;
+  };
+
   render() {
+    console.log(this.props);
     return (
       <React.Fragment>
         <Header />
         <Main />
         <div className="container" style={{ marginTop: "40px" }}>
           <section id="rentalListing">
-            <h1 className="page-title">Your Home All Around the World</h1>
-            <RentalList rentals={this.state.rentals} />
+            {this.renderTitle()}
+            <RentalList rentals={this.props.rentals.data} />
           </section>
         </div>
       </React.Fragment>
@@ -32,4 +61,11 @@ class RentalSearchListing extends Component {
   }
 }
 
-export default RentalSearchListing;
+const mapStateToProps = state => ({
+  rentals: state.rentals
+});
+
+export default connect(
+  mapStateToProps,
+  { fetchRentals }
+)(RentalSearchListing);
