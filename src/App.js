@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route, Redirect } from "react-router-dom";
 import { Provider } from "react-redux";
-import Header from "components/shared/Header";
 import RentalListing from "components/rental/rental-list/RentalListing";
+import RentalSearchListing from "components/rental/rental-list/RentalSearchListing";
 import RentalDetail from "components/rental/rental-detail/RentalDetail";
 import Register from "components/register/Register";
 import Login from "components/login/Login";
@@ -32,17 +32,22 @@ class App extends Component {
     return (
       <Provider store={store}>
         <BrowserRouter>
-            <div className="App">
-              <Route exact path="/" render={() => <Redirect to="/rentals" />} />
-              <Route exact path="/rentals" component={RentalListing} />
-              <ProtectedRoute
-                exact
-                path="/rentals/:id"
-                component={RentalDetail}
-              />
-              <Route exact path="/login" component={Login} />
-              <LoggedInRoute exact path="/register" component={Register} />
-            </div>
+          <div className="App">
+            <Route exact path="/" render={() => <Redirect to="/rentals" />} />
+            <Route exact path="/rentals" component={RentalListing} />
+            <Route
+              exact
+              path="/rentals/:city/homes"
+              component={RentalSearchListing}
+            />
+            <ProtectedRoute
+              exact
+              path="/rentals/:id"
+              component={RentalDetail}
+            />
+            <Route exact path="/login" component={Login} />
+            <LoggedInRoute exact path="/register" component={Register} />
+          </div>
         </BrowserRouter>
       </Provider>
     );
