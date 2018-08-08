@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
 import RentalListing from "components/rental/rental-list/RentalListing";
 import RentalSearchListing from "components/rental/rental-list/RentalSearchListing";
@@ -41,16 +41,19 @@ class App extends Component {
               path="/rentals/:city/homes"
               component={RentalSearchListing}
             />
-            <ProtectedRoute
-              exact
-              path="/rentals/:id"
-              component={RentalDetail}
-            />
-            <ProtectedRoute
-              exact
-              path="/rentals/new"
-              component={RentalCreate}
-            />
+            <Switch>
+              <ProtectedRoute
+                exact
+                path="/rentals/new"
+                component={RentalCreate}
+              />
+              <ProtectedRoute
+                exact
+                path="/rentals/:id"
+                component={RentalDetail}
+              />
+            </Switch>
+
             <Route exact path="/login" component={Login} />
             <LoggedInRoute exact path="/register" component={Register} />
           </div>
