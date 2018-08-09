@@ -1,11 +1,32 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import HeaderWithSearch from "components/shared/HeaderWithSearch";
 import RentalCreateForm from "./RentalCreateForm";
+import { createRental } from "actions";
 
 class RentalCreate extends Component {
-  submitRental = () => {};
+  state = {
+    redirect: false,
+    errors: []
+  };
+
+  submitRental = rentalData => {
+    this.props
+      .createRental(rentalData)
+      .then(
+        res => this.setState({ redirect: true }),
+        errors => this.setState({ errors })
+      );
+  };
 
   render() {
+    const { redirect } = this.state;
+
+    if (redirect) {
+      return <Redirect to={{ pathname: "/rentals" }} />;
+    }
+
     return (
       <React.Fragment>
         <HeaderWithSearch />
@@ -37,4 +58,7 @@ class RentalCreate extends Component {
   }
 }
 
-export default RentalCreate;
+export default connect(
+  null,
+  { createRental }
+)(RentalCreate);

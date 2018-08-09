@@ -58,6 +58,12 @@ export const fetchRentalById = id => dispatch => {
     .then(rental => dispatch(fetchRentalByIdSuccess(rental)));
 };
 
+export const createRental = rentalData => dispatch => {
+  return axiosInstance
+    .post("/rentals", rentalData)
+    .then(res => res.data, error => Promise.reject(error.response.data.errors));
+};
+
 // AUTH ACTIONS -------------------------------
 
 export const register = userData => {

@@ -56,6 +56,14 @@ const RentalCreateForm = props => {
       />
 
       <Field
+        name="image"
+        type="text"
+        label="Image"
+        className="form-control"
+        component={BwmInput}
+      />
+
+      <Field
         name="description"
         type="text"
         label="Description"
