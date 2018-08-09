@@ -99,31 +99,10 @@ const RentalCreateForm = props => {
   );
 };
 
-// const validate = values => {
-//   const errors = {};
-
-//   if (values.username && values.username.length < 4) {
-//     errors.username = "Username min length is 4 characters!";
-//   }
-
-//   if (!values.email) {
-//     errors.email = "Please enter email! Email is required.";
-//   }
-
-//   if (!values.passwordConfirmation) {
-//     errors.passwordConfirmation = "Please enter password confirmation!";
-//   }
-
-//   if (values.password !== values.passwordConfirmation) {
-//     errors.password = "Password must be the same.";
-//   }
-
-//   return errors;
-// };
-
 export default reduxForm({
   form: "rentalCreateForm",
   initialValues: {
-    shared: false
+    shared: false,
+    category: "apartment"
   }
 })(RentalCreateForm);

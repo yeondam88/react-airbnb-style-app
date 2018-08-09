@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import HeaderWithSearch from "components/shared/HeaderWithSearch";
 import RentalCreateForm from "./RentalCreateForm";
@@ -14,12 +13,10 @@ class RentalCreate extends Component {
   rentalCategories = ["apartment", "house", "condo"];
 
   submitRental = rentalData => {
-    this.props
-      .createRental(rentalData)
-      .then(
-        res => this.setState({ redirect: true }),
-        errors => this.setState({ errors })
-      );
+    createRental(rentalData).then(
+      res => this.setState({ redirect: true }),
+      errors => this.setState({ errors })
+    );
   };
 
   render() {
@@ -64,7 +61,4 @@ class RentalCreate extends Component {
   }
 }
 
-export default connect(
-  null,
-  { createRental }
-)(RentalCreate);
+export default RentalCreate;
