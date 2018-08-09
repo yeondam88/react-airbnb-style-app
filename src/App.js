@@ -34,14 +34,14 @@ class App extends Component {
       <Provider store={store}>
         <BrowserRouter>
           <div className="App">
-            <Route exact path="/" render={() => <Redirect to="/rentals" />} />
-            <Route exact path="/rentals" component={RentalListing} />
-            <Route
-              exact
-              path="/rentals/:city/homes"
-              component={RentalSearchListing}
-            />
             <Switch>
+              <Route exact path="/" render={() => <Redirect to="/rentals" />} />
+              <Route exact path="/rentals" component={RentalListing} />
+              <Route
+                exact
+                path="/rentals/:city/homes"
+                component={RentalSearchListing}
+              />
               <ProtectedRoute
                 exact
                 path="/rentals/new"

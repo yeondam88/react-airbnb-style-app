@@ -11,6 +11,8 @@ class RentalCreate extends Component {
     errors: []
   };
 
+  rentalCategories = ["apartment", "house", "condo"];
+
   submitRental = rentalData => {
     this.props
       .createRental(rentalData)
@@ -36,7 +38,11 @@ class RentalCreate extends Component {
               <div className="row">
                 <div className="col-md-5">
                   <h1 className="page-title">Create Rental</h1>
-                  <RentalCreateForm submitCb={this.submitRental} />
+                  <RentalCreateForm
+                    options={this.rentalCategories}
+                    submitCb={this.submitRental}
+                    errors={this.state.errors}
+                  />
                 </div>
                 <div className="col-md-6 ml-auto">
                   <div className="image-container">
