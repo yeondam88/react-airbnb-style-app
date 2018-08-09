@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { rentalType } from "helpers";
 
 const RentalCard = ({ colNum, rental }) => (
-  <div className={colNum}>
+  <div className={colNum} style={{ marginBottom: "15px" }}>
     <Link className="rental-detail-link" to={`/rentals/${rental._id}`}>
       <div className="card bwm-card">
         <img src={rental.image} alt={rental.title} className="card-img-top" />

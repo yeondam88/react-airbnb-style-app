@@ -1,0 +1,47 @@
+.rental-banner {
+  display: table;
+  box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px;
+  border-radius: 3px;
+  border: 1px solid rgba(0,0,0,0.1);
+  padding-left: 0px !important;
+  margin-left: 15px;
+  margin-right: 15px;
+
+  &__image--1 {
+    background-image: url('https://a0.muscache.com/im/pictures/8b7519ec-2c82-4c09-8233-fd4d2715bbf9.jpg?aki_policy=large');
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 50%;
+    height: 60px;
+    overflow: hidden;
+    display: table-cell;
+    vertical-align: middle;
+  }
+
+  &__image--2 {
+    background-image: url('https://a0.muscache.com/im/pictures/cb8b3101-d419-4c17-8e2f-4989b39b98c3.jpg?aki_policy=large');
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 50%;
+    height: 60px;
+    overflow: hidden;
+    display: table-cell;
+    vertical-align: middle;
+  }
+
+  &__image--3 {
+    background-image: url('https://a0.muscache.com/im/pictures/da2d8e97-90b7-409f-94ac-5ab0327c289b.jpg?aki_policy=large');
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 50%;
+    height: 60px;
+    overflow: hidden;
+    display: table-cell;
+    vertical-align: middle;
+  }
+
+  &__text {
+    display: table-cell;
+    vertical-align: middle;
+  }
+}

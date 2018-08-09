@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import RentalCard from "../RentalCard";
+import RentalCard from "./RentalCard";
 
 class RentalList extends Component {
   renderRentals = () => {
