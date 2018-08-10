@@ -72,9 +72,11 @@ export const register = userData => {
     .then(res => res.data, error => Promise.reject(error.response.data.errors));
 };
 
-const loginSuccess = token => {
+const loginSuccess = () => {
+  const username = authService.getUsername();
   return {
-    type: LOGIN_SUCCESS
+    type: LOGIN_SUCCESS,
+    username
   };
 };
 

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import { logout } from "actions";
 
 import RentalSearchInput from "components/rental/RentalSearchInput";
 
@@ -10,11 +11,7 @@ class HeaderWithSearch extends Component {
     this.props.history.push("/login");
   };
 
-  renderAuthButtons = () => {
-    const {
-      auth: { isAuth }
-    } = this.props;
-
+  renderAuthButtons = isAuth => {
     if (isAuth) {
       return (
         <a className="nav-item nav-link clickable" onClick={this.handleLogout}>
@@ -32,7 +29,36 @@ class HeaderWithSearch extends Component {
     ];
   };
 
+  renderOwnerSection = isAuth => {
+    if (isAuth) {
+      return (
+        <div className="nav-item dropdown">
+          <a
+            href="#"
+            id="navbarDropdownMenuLink"
+            data-toggle="dropdown"
+            className="nav-link nav-item dropdown-toggle"
+          >
+            Owner Section
+          </a>
+          <div className="dropdown-menu">
+            <Link className="dropdown-item" to="/rentals/new">
+              Create Rental
+            </Link>
+            <Link className="dropdown-item" to="#">
+              Manage Rentals
+            </Link>
+            <Link className="dropdown-item" to="#">
+              Manage Bookings
+            </Link>
+          </div>
+        </div>
+      );
+    }
+  };
+
   render() {
+    const { username, isAuth } = this.props.auth;
     return (
       <nav
         className="navbar navbar-dark navbar-expand-lg"
@@ -56,28 +82,13 @@ class HeaderWithSearch extends Component {
           </button>
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div className="navbar-nav ml-auto">
-              <div className="nav-item dropdown">
-                <a
-                  href="#"
-                  id="navbarDropdownMenuLink"
-                  data-toggle="dropdown"
-                  className="nav-link nav-item dropdown-toggle"
-                >
-                  Owner Section
+              {isAuth && (
+                <a key="registerLink" className="nav-item nav-link">
+                  {this.props.auth.username}
                 </a>
-                <div className="dropdown-menu">
-                  <Link className="dropdown-item" to="/rentals/new">
-                    Create Rental
-                  </Link>
-                  <Link className="dropdown-item" to="#">
-                    Manage Rentals
-                  </Link>
-                  <Link className="dropdown-item" to="#">
-                    Manage Bookings
-                  </Link>
-                </div>
-              </div>
-              {this.renderAuthButtons()}
+              )}
+              {this.renderOwnerSection(isAuth)}
+              {this.renderAuthButtons(isAuth)}
             </div>
           </div>
         </div>
@@ -93,6 +104,6 @@ const mapStateToProps = state => ({
 export default withRouter(
   connect(
     mapStateToProps,
-    null
+    { logout }
   )(HeaderWithSearch)
 );
