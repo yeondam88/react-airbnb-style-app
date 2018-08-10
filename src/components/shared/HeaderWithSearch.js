@@ -55,7 +55,30 @@ class HeaderWithSearch extends Component {
             <span className="navbar-toggler-icon" />
           </button>
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div className="navbar-nav ml-auto">{this.renderAuthButtons()}</div>
+            <div className="navbar-nav ml-auto">
+              <div className="nav-item dropdown">
+                <a
+                  href="#"
+                  id="navbarDropdownMenuLink"
+                  data-toggle="dropdown"
+                  className="nav-link nav-item dropdown-toggle"
+                >
+                  Owner Section
+                </a>
+                <div className="dropdown-menu">
+                  <Link className="dropdown-item" to="/rentals/new">
+                    Create Rental
+                  </Link>
+                  <Link className="dropdown-item" to="#">
+                    Manage Rentals
+                  </Link>
+                  <Link className="dropdown-item" to="#">
+                    Manage Bookings
+                  </Link>
+                </div>
+              </div>
+              {this.renderAuthButtons()}
+            </div>
           </div>
         </div>
       </nav>
