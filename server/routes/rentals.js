@@ -9,6 +9,19 @@ router.get("/secret", UserCtrl.authMiddleware, (req, res) => {
   res.json({ secret: true });
 });
 
+router.get("/manage", UserCtrl.authMiddleware, (req, res) => {
+  const user = res.locals.user;
+
+  Rental.where({ user })
+    .populate("bookings")
+    .exec((err, foundRental) => {
+      if (err) {
+        return res.status(422).send({ errors: normalizeErrors(err.errors) });
+      }
+      return res.json(foundRental);
+    });
+});
+
 router.get("/:id", (req, res) => {
   const rentalId = req.params.id;
 
