@@ -27,6 +27,48 @@ router.get("/:id", (req, res) => {
     });
 });
 
+router.delete("/:id", UserCtrl.authMiddleware, (req, res) => {
+  const user = res.locals.user;
+
+  Rental.findById(req.params.id)
+    .populate("user", "_id")
+    .populate({
+      path: "bookings",
+      select: "startAt",
+      match: {
+        startAt: { $gt: new Date() }
+      }
+    })
+    .exec((err, foundRental) => {
+      if (err) {
+        return res.status(422).send({ errors: normalizeErrors(err.errors) });
+      }
+      if (user.id !== foundRental.user.id) {
+        return res.status(422).send({
+          errors: [
+            { title: "Invalid User!", detail: "You are not rental owner!" }
+          ]
+        });
+      }
+      if (foundRental.bookings.length > 0) {
+        return res.status(422).send({
+          errors: [
+            {
+              title: "Active bookings",
+              detail: "Cannot delete rental with active bookings!"
+            }
+          ]
+        });
+      }
+      foundRental.remove(err => {
+        if (err) {
+          return res.status(422).send({ errors: normalizeErrors(err.errors) });
+        }
+        return res.json({ status: "deleted" });
+      });
+    });
+});
+
 router.get("", (req, res) => {
   const city = req.query.city;
   const query = city ? { city: city.toLowerCase() } : {};
