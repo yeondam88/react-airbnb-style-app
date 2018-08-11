@@ -72,7 +72,7 @@ exports.getUserBookings = (req, res) => {
   const user = res.locals.user;
 
   Booking.where({ user })
-    .populate("rentals")
+    .populate("rental")
     .exec((err, foundBookings) => {
       if (err) {
         return res.status(422).send({ errors: normalizeErrors(err.errors) });
