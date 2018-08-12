@@ -9,7 +9,10 @@ import {
   FETCH_RENTALS_FAIL,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
-  LOG_OUT
+  LOG_OUT,
+  FETCH_USER_BOOKINGS_INIT,
+  FETCH_USER_BOOKINGS_SUCCESS,
+  FETCH_USER_BOOKINGS_FAIL
 } from "./types";
 
 // RENTALS ACTIONS -------------------------------
@@ -115,9 +118,34 @@ export const logout = () => {
 
 // BOOKING ACTIONS -------------------------------
 
+const fetchUserBookingsInit = () => ({
+  type: FETCH_USER_BOOKINGS_INIT
+});
+
+const fetchUserBookingsSuccess = userBookings => ({
+  type: FETCH_USER_BOOKINGS_SUCCESS,
+  userBookings
+});
+
+const fetchUserBookingsFail = errors => ({
+  type: FETCH_USER_BOOKINGS_FAIL,
+  errors
+});
+
 export const createBooking = booking => {
   return axiosInstance
     .post("/bookings", booking)
     .then(res => res.data)
     .catch(({ response }) => Promise.reject(response.data.errors));
+};
+
+export const fetchUserBookings = () => dispatch => {
+  dispatch(fetchUserBookingsInit());
+  axiosInstance
+    .get("/bookings/manage")
+    .then(res => res.data)
+    .then(userBookings => dispatch(fetchUserBookingsSuccess(userBookings)))
+    .catch(({ response }) =>
+      dispatch(fetchUserBookingsFail(response.data.errors))
+    );
 };
