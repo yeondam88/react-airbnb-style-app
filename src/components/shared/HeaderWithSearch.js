@@ -34,21 +34,20 @@ class HeaderWithSearch extends Component {
       return (
         <div className="nav-item dropdown">
           <a
-            href="#"
             id="navbarDropdownMenuLink"
             data-toggle="dropdown"
-            className="nav-link nav-item dropdown-toggle"
+            className="nav-link nav-item dropdown-toggle clickable"
           >
             Owner Section
           </a>
           <div className="dropdown-menu">
-            <Link className="dropdown-item" to="/rentals/new">
+            <Link to="/rentals/new" className="dropdown-item">
               Create Rental
             </Link>
-            <Link className="dropdown-item" to="#">
+            <Link to="/rentals/manage" className="dropdown-item">
               Manage Rentals
             </Link>
-            <Link className="dropdown-item" to="#">
+            <Link to="/bookings/manage" className="dropdown-item">
               Manage Bookings
             </Link>
           </div>
@@ -84,7 +83,7 @@ class HeaderWithSearch extends Component {
             <div className="navbar-nav ml-auto">
               {isAuth && (
                 <a key="registerLink" className="nav-item nav-link">
-                  {this.props.auth.username}
+                  {username}
                 </a>
               )}
               {this.renderOwnerSection(isAuth)}
