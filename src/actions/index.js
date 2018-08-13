@@ -149,3 +149,10 @@ export const fetchUserBookings = () => dispatch => {
       dispatch(fetchUserBookingsFail(response.data.errors))
     );
 };
+
+export const getUserRentals = () => {
+  return axiosInstance
+    .get("/rentals/manage")
+    .then(res => res.data)
+    .catch(errors => Promise.reject(errors.response.data.errors));
+};
