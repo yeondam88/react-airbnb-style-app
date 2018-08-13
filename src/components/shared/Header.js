@@ -31,14 +31,50 @@ class Header extends Component {
     ];
   };
 
+  renderOwnerSection = isAuth => {
+    if (isAuth) {
+      return (
+        <div className="nav-item dropdown">
+          <a
+            id="navbarDropdownMenuLink"
+            data-toggle="dropdown"
+            className="nav-link nav-item dropdown-toggle clickable"
+          >
+            Owner Section
+          </a>
+          <div className="dropdown-menu">
+            <Link to="/rentals/new" className="dropdown-item">
+              Create Rental
+            </Link>
+            <Link to="/rentals/manage" className="dropdown-item">
+              Manage Rentals
+            </Link>
+            <Link to="/bookings/manage" className="dropdown-item">
+              Manage Bookings
+            </Link>
+          </div>
+        </div>
+      );
+    }
+  };
+
   render() {
+    const { isAuth, username } = this.props.auth;
     return (
       <nav className="bwm-navbar" style={this.props.style || null}>
         <Link to="/" className="navbar-brand">
           BookWithMe
         </Link>
-        <div>
-          <div className="navbar-nav ml-auto">{this.renderAuthButtons()}</div>
+        <div id="navbarNavAltMarkup">
+          <div className="navbar-nav ml-auto">
+            {isAuth && (
+              <a key="registerLink" className="nav-item nav-link">
+                {username}
+              </a>
+            )}
+            {this.renderOwnerSection(isAuth)}
+            {this.renderAuthButtons(isAuth)}
+          </div>
         </div>
       </nav>
     );
