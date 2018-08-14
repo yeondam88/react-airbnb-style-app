@@ -6,7 +6,8 @@ import {
 
 const initialState = {
   data: [],
-  errors: []
+  errors: [],
+  isFetching: false
 };
 
 export const userBookingsReducer = (state = initialState, action) => {
@@ -15,19 +16,22 @@ export const userBookingsReducer = (state = initialState, action) => {
       return {
         ...state,
         data: [],
-        errors: []
+        errors: [],
+        isFetching: true
       };
     case FETCH_USER_BOOKINGS_SUCCESS:
       return {
         ...state,
         data: action.userBookings,
-        errors: []
+        errors: [],
+        isFetching: false
       };
     case FETCH_USER_BOOKINGS_FAIL:
       return {
         ...state,
         data: [],
-        errors: action.errors
+        errors: action.errors,
+        isFetching: false
       };
     default:
       return state;

@@ -11,6 +11,8 @@ export const toUpperCase = value => (value ? titleize(value) : "");
 //   return capitalized;
 // };
 
+export const pretifyDate = date => moment(date).format("MMM Do YY");
+
 export const getRangeOfDates = (startAt, endAt, dateFormat = "Y/MM/DD") => {
   const tempDates = [];
   const momentEndAt = moment(endAt);

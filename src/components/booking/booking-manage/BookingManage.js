@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import moment from "moment";
 import HeaderWithSearch from "components/shared/HeaderWithSearch";
 import { fetchUserBookings } from "actions";
+import { pretifyDate, toUpperCase } from "helpers";
 
 class BookingManage extends Component {
   componentDidMount() {
@@ -11,8 +11,7 @@ class BookingManage extends Component {
   }
 
   render() {
-    const { userBookings } = this.props;
-    console.log(userBookings);
+    const { data: bookings, isFetching } = this.props.userBookings;
     return (
       <React.Fragment>
         <HeaderWithSearch />
@@ -20,7 +19,7 @@ class BookingManage extends Component {
           <section id="userBookings">
             <h1 className="page-title">My Bookings</h1>
             <div className="row">
-              {userBookings.data.map(booking => {
+              {bookings.map(booking => {
                 return (
                   <div key={booking._id} className="col-md-4">
                     <div className="card text-center">
@@ -33,7 +32,8 @@ class BookingManage extends Component {
                         {booking.rental && (
                           <Fragment>
                             <h4 className="card-title">
-                              {booking.rental.title} - {booking.rental.city}
+                              {booking.rental.title} -{" "}
+                              {toUpperCase(booking.rental.city)}
                             </h4>
                             <p className="card-text booking-desc">
                               {booking.rental.description}
@@ -42,9 +42,9 @@ class BookingManage extends Component {
                         )}
 
                         <p className="card-text booking-days">
-                          {moment(booking.startAt).format("MM/DD/YY")} -{" "}
-                          {moment(booking.endAt).format("MM/DD/YY")} |{" "}
-                          {booking.days} {booking.days > 1 ? "days" : "day"}
+                          {pretifyDate(booking.startAt)} -{" "}
+                          {pretifyDate(booking.endAt)} | {booking.days}{" "}
+                          {booking.days > 1 ? "days" : "day"}
                         </p>
                         <p className="card-text booking-price">
                           <span>Price: </span>
@@ -61,24 +61,27 @@ class BookingManage extends Component {
                         </Link>
                       </div>
                       <div className="card-footer text-muted">
-                        created {moment(booking.createdAt).format("MM/DD/YY")}
+                        created {pretifyDate(booking.createdAt)}
                       </div>
                     </div>
                   </div>
                 );
               })}
             </div>
-            <div className="alert alert-warning">
-              You have no bookings created go to rentals section and book your
-              place today.
-              <Link
-                style={{ marginLeft: "10px" }}
-                className="btn btn-bwm"
-                to="rentals index page"
-              >
-                Available Rental
-              </Link>
-            </div>
+            {!isFetching &&
+              bookings.length === 0 && (
+                <div className="alert alert-warning">
+                  You have no bookings created go to rentals section and book
+                  your place today.
+                  <Link
+                    style={{ marginLeft: "10px" }}
+                    className="btn btn-bwm"
+                    to="rentals index page"
+                  >
+                    Available Rental
+                  </Link>
+                </div>
+              )}
           </section>
         </div>
       </React.Fragment>
