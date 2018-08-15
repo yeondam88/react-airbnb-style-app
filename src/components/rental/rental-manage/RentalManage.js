@@ -44,14 +44,14 @@ class RentalManage extends Component {
           {!isFetching &&
             userRentals.length === 0 && (
               <div className="alert alert-warning">
-                You have no bookings created go to rentals section and book your
-                place today.
+                You don't have any rentals currently created. If you want
+                advertised your property please follow this link
                 <Link
                   style={{ marginLeft: "10px" }}
                   className="btn btn-bwm"
-                  to="/rentals"
+                  to="/rentals/new"
                 >
-                  Available Rental
+                  Register Rental
                 </Link>
               </div>
             )}
