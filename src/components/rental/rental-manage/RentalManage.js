@@ -24,14 +24,19 @@ class RentalManage extends Component {
   handleDeleteRental = (id, rentalIndex) => {
     deleteRental(id)
       .then(res => {
-        this.setState({
-          userRentals: this.state.userRentals.splice(rentalIndex, 1)
-        });
+        this.deleteRentalFromList(rentalIndex);
         toast.success("Your rental is deleted!");
       })
-      .catch(error => {
-        toast.warn(error[0].detail);
+      .catch(errors => {
+        toast.warn(errors[0].detail);
       });
+  };
+
+  deleteRentalFromList = rentalIndex => {
+    const userRentals = this.state.userRentals.slice();
+    userRentals.splice(rentalIndex, 1);
+
+    this.setState({ userRentals });
   };
 
   render() {
@@ -52,10 +57,11 @@ class RentalManage extends Component {
         <div className="container" style={{ marginTop: "80px" }}>
           <h1 className="title">My Rentals</h1>
           <div className="row">
-            {userRentals.map(rental => {
+            {userRentals.map((rental, index) => {
               return (
                 <RentalManageCard
                   rental={rental}
+                  rentalIndex={index}
                   key={rental._id}
                   onDeleteRental={this.handleDeleteRental}
                 />
