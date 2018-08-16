@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import HeaderWithSearch from "components/shared/HeaderWithSearch";
 import { ClipLoader } from "react-spinners";
-import { getUserRentals } from "actions";
+import { getUserRentals, deleteRental } from "actions";
 import RentalManageCard from "./RentalManageCard";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 class RentalManage extends Component {
   state = {
@@ -20,6 +21,19 @@ class RentalManage extends Component {
     );
   }
 
+  handleDeleteRental = (id, rentalIndex) => {
+    deleteRental(id)
+      .then(res => {
+        this.setState({
+          userRentals: this.state.userRentals.splice(rentalIndex, 1)
+        });
+        toast.success("Your rental is deleted!");
+      })
+      .catch(error => {
+        toast.warn(error[0].detail);
+      });
+  };
+
   render() {
     const { userRentals, isFetching } = this.state;
 
@@ -34,11 +48,18 @@ class RentalManage extends Component {
     return (
       <React.Fragment>
         <HeaderWithSearch />
+        <ToastContainer />
         <div className="container" style={{ marginTop: "80px" }}>
           <h1 className="title">My Rentals</h1>
           <div className="row">
             {userRentals.map(rental => {
-              return <RentalManageCard rental={rental} key={rental._id} />;
+              return (
+                <RentalManageCard
+                  rental={rental}
+                  key={rental._id}
+                  onDeleteRental={this.handleDeleteRental}
+                />
+              );
             })}
           </div>
           {!isFetching &&

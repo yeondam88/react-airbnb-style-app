@@ -67,6 +67,12 @@ export const createRental = rentalData => {
     .then(res => res.data, error => Promise.reject(error.response.data.errors));
 };
 
+export const deleteRental = id => {
+  return axiosInstance
+    .delete(`/rentals/${id}`)
+    .then(res => res.data, error => Promise.reject(error.response.data.errors));
+};
+
 // AUTH ACTIONS -------------------------------
 
 export const register = userData => {
