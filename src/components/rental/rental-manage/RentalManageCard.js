@@ -20,6 +20,11 @@ class RentalManageCard extends Component {
     });
   };
 
+  deleteRental = (id, rentalIndex) => {
+    this.setState({ wantDelete: false });
+    this.props.onDeleteRental(id, rentalIndex);
+  };
+
   render() {
     const { image, title, city, _id, createdAt, bookings } = this.props.rental;
     const { wantDelete } = this.state;
@@ -59,7 +64,7 @@ class RentalManageCard extends Component {
               <div>
                 Are you sure ?
                 <button
-                  onClick={() => onDeleteRental(_id, rentalIndex)}
+                  onClick={() => this.deleteRental(_id, rentalIndex)}
                   className="btn btn-sm btn-danger m-2"
                 >
                   Yes

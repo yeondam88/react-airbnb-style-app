@@ -28,7 +28,7 @@ class RentalManage extends Component {
         toast.success("Your rental is deleted!");
       })
       .catch(errors => {
-        toast.warn(errors[0].detail);
+        toast.error(errors[0].detail);
       });
   };
 
