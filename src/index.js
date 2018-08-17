@@ -4,6 +4,7 @@ import App from "./App";
 import registerServiceWorker from "./registerServiceWorker";
 
 import "font-awesome/css/font-awesome.min.css";
+import "@fortawesome/fontawesome-pro/css/all.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 import "bootstrap-daterangepicker/daterangepicker.css";

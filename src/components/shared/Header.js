@@ -64,15 +64,19 @@ class Header extends Component {
       return (
         <React.Fragment>
           <Link to="/rentals/new" className="menu-item">
+            <i className="fal fa-hotel" />
             Create Rental
           </Link>
           <Link to="/rentals/manage" className="menu-item">
+            <i className="fal fa-cog" />
             Manage Rentals
           </Link>
           <Link to="/bookings/manage" className="menu-item">
+            <i className="fal fa-cog" />
             Manage Bookings
           </Link>
           <a onClick={this.handleLogout} className="menu-item">
+            <i class="fal fa-sign-out-alt" />
             Log out
           </a>
         </React.Fragment>
@@ -82,9 +86,11 @@ class Header extends Component {
     return (
       <React.Fragment>
         <Link to="/login" className="menu-item">
+          <i class="fal fa-sign-in-alt" />
           Login
         </Link>
         <Link to="/register" className="menu-item">
+          <i class="fal fa-hand-peace" />
           Register
         </Link>
       </React.Fragment>
@@ -109,9 +115,11 @@ class Header extends Component {
             {this.renderAuthButtons(isAuth)}
           </div>
         </div>
-        <Menu right className="hidden-mg hidden-lg" styles={styles}>
-          {this.renderMobileMenu(isAuth)}
-        </Menu>
+        <div className="d-lg-none d-md-none">
+          <Menu right styles={styles}>
+            {this.renderMobileMenu(isAuth)}
+          </Menu>
+        </div>
       </nav>
     );
   }
