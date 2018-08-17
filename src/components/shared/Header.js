@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
+import { elastic as Menu } from "react-burger-menu";
 import { connect } from "react-redux";
 import * as actions from "actions";
 
@@ -58,6 +59,38 @@ class Header extends Component {
     }
   };
 
+  renderMobileMenu = isAuth => {
+    if (isAuth) {
+      return (
+        <React.Fragment>
+          <Link to="/rentals/new" className="menu-item">
+            Create Rental
+          </Link>
+          <Link to="/rentals/manage" className="menu-item">
+            Manage Rentals
+          </Link>
+          <Link to="/bookings/manage" className="menu-item">
+            Manage Bookings
+          </Link>
+          <a onClick={this.handleLogout} className="menu-item">
+            Log out
+          </a>
+        </React.Fragment>
+      );
+    }
+
+    return (
+      <React.Fragment>
+        <Link to="/login" className="menu-item">
+          Login
+        </Link>
+        <Link to="/register" className="menu-item">
+          Register
+        </Link>
+      </React.Fragment>
+    );
+  };
+
   render() {
     const { isAuth, username } = this.props.auth;
     return (
@@ -65,7 +98,7 @@ class Header extends Component {
         <Link to="/" className="navbar-brand">
           BookWithMe
         </Link>
-        <div id="navbarNavAltMarkup">
+        <div id="navbarNavAltMarkup" className="d-none d-lg-block">
           <div className="navbar-nav ml-auto">
             {isAuth && (
               <a key="registerLink" className="nav-item nav-link">
@@ -76,10 +109,53 @@ class Header extends Component {
             {this.renderAuthButtons(isAuth)}
           </div>
         </div>
+        <Menu right className="hidden-mg hidden-lg" styles={styles}>
+          {this.renderMobileMenu(isAuth)}
+        </Menu>
       </nav>
     );
   }
 }
+
+const styles = {
+  bmBurgerButton: {
+    position: "fixed",
+    width: "36px",
+    height: "30px",
+    right: "36px",
+    top: "36px"
+  },
+  bmBurgerBars: {
+    background: "#373a47"
+  },
+  bmCrossButton: {
+    height: "24px",
+    width: "24px"
+  },
+  bmCross: {
+    background: "#bdc3c7"
+  },
+  bmMenu: {
+    background: "#373a47",
+    padding: "2.5em 1.5em 0",
+    fontSize: "1.15em"
+  },
+  bmMorphShape: {
+    fill: "#373a47"
+  },
+  bmItemList: {
+    color: "#b8b7ad",
+    padding: "0.8em"
+  },
+  bmItem: {
+    display: "block",
+    fontSize: "2em",
+    color: "white"
+  },
+  bmOverlay: {
+    background: "rgba(0, 0, 0, 0.3)"
+  }
+};
 
 const mapStateToProps = state => ({
   auth: state.auth

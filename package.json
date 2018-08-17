@@ -22,6 +22,7 @@
     "popper.js": "^1.14.3",
     "react": "^16.4.1",
     "react-bootstrap-daterangepicker": "^4.1.0",
+    "react-burger-menu": "^2.5.2",
     "react-dom": "^16.4.1",
     "react-google-maps": "^9.4.5",
     "react-redux": "^5.0.7",

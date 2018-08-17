@@ -34,9 +34,11 @@ class HeaderWithSearch extends Component {
       return (
         <div className="nav-item dropdown">
           <a
+            className="nav-link nav-item dropdown-toggle clickable"
             id="navbarDropdownMenuLink"
             data-toggle="dropdown"
-            className="nav-link nav-item dropdown-toggle clickable"
+            aria-haspopup="true"
+            aria-expanded="false"
           >
             Owner Section
           </a>
@@ -72,8 +74,8 @@ class HeaderWithSearch extends Component {
             className="navbar-toggler"
             type="button"
             data-toggle="collapse"
-            data-target="#navbarTogglerDemo03"
-            aria-controls="navbarTogglerDemo03"
+            data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup"
             aria-expanded="false"
             aria-label="Toggle navigation"
           >

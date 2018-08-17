@@ -31,3 +31,27 @@
     }
   }
 }
+
+.menu-item {
+  display: block;
+  color: white;
+  font-size: 2em;
+  text-transform: uppercase;
+}
+
+@media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) and (orientation: portrait) {
+  .navbar {
+    .form-inline {
+      flex-flow: nowrap;
+      .form-control {
+        margin-right: 8px;
+      }
+    }
+  }
+  .navbar-collapse {
+    .navbar-nav {
+      display: block !important;
+      text-align: center;
+    }
+  }
+}
