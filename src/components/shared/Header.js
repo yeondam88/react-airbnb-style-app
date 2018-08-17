@@ -76,7 +76,7 @@ class Header extends Component {
             Manage Bookings
           </Link>
           <a onClick={this.handleLogout} className="menu-item">
-            <i class="fal fa-sign-out-alt" />
+            <i className="fal fa-sign-out-alt" />
             Log out
           </a>
         </React.Fragment>
@@ -86,11 +86,11 @@ class Header extends Component {
     return (
       <React.Fragment>
         <Link to="/login" className="menu-item">
-          <i class="fal fa-sign-in-alt" />
+          <i className="fal fa-sign-in-alt" />
           Login
         </Link>
         <Link to="/register" className="menu-item">
-          <i class="fal fa-hand-peace" />
+          <i className="fal fa-hand-peace" />
           Register
         </Link>
       </React.Fragment>

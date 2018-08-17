@@ -28,21 +28,20 @@ class RentalManageCard extends Component {
   render() {
     const { image, title, city, _id, createdAt, bookings } = this.props.rental;
     const { wantDelete } = this.state;
-    const { onDeleteRental, rentalIndex } = this.props;
+    const { rentalIndex } = this.props;
 
     const deleteClass = wantDelete ? "toBeDeleted" : "";
 
     return (
       <div key={_id} className="col-md-4 rental-card">
         <div className={`card text-center ${deleteClass}`}>
-          <img className="card-img-top" src={image} alt="Card image cap" />
+          <img className="card-img-top" src={image} alt={title} />
           <div className="card-body">
             <p className="card-text">
               {title} - {toUpperCase(city)}
             </p>
             <Link
               className="btn btn-primary btn-sm rental-card-btn"
-              to="rental detail"
               to={`/rentals/${_id}`}
             >
               Go to Rental

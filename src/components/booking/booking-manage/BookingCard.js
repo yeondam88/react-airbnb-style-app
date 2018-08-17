@@ -9,7 +9,7 @@ const BookingCard = ({ booking }) => {
         <img
           className="card-img-top"
           src={booking.rental.image}
-          alt="Card image cap"
+          alt={booking.title}
         />
         <div className="card-body">
           {booking.rental && (
@@ -39,7 +39,6 @@ const BookingCard = ({ booking }) => {
           </p>
           <Link
             className="btn btn-primary btn-sm"
-            to="rental detail"
             to={`/rentals/${booking.rental._id}`}
           >
             Go to Rental
