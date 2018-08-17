@@ -28,3 +28,6 @@ yarn-error.log*
 
 # env file
 .env
+
+# Google map API Key
+/src/config.js
