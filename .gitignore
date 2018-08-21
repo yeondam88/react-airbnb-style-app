@@ -31,3 +31,6 @@ yarn-error.log*
 
 # Google map API Key
 /src/config.js
+
+# Ignore Yarn lock file
+yarn.lock
