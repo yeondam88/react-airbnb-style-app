@@ -34,3 +34,6 @@ yarn-error.log*
 
 # Ignore Yarn lock file
 yarn.lock
+
+# npmrc
+.npmrc
