@@ -20,7 +20,7 @@ class HeaderWithSearch extends Component {
       );
     }
     return [
-      <Link key="loginLink" to="/login" className="nav-item nav-link active">
+      <Link key="loginLink" to="/login" className="nav-item nav-link">
         Login <span className="sr-only">(current)</span>
       </Link>,
       <Link key="registerLink" to="/register" className="nav-item nav-link">
