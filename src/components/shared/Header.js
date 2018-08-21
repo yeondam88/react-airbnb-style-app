@@ -64,19 +64,19 @@ class Header extends Component {
       return (
         <React.Fragment>
           <Link to="/rentals/new" className="menu-item">
-            <i className="fal fa-hotel" />
+            <i className="fas fa-hotel" />
             Create Rental
           </Link>
           <Link to="/rentals/manage" className="menu-item">
-            <i className="fal fa-cog" />
+            <i className="fas fa-cog" />
             Manage Rentals
           </Link>
           <Link to="/bookings/manage" className="menu-item">
-            <i className="fal fa-cog" />
+            <i className="fas fa-cog" />
             Manage Bookings
           </Link>
           <a onClick={this.handleLogout} className="menu-item">
-            <i className="fal fa-sign-out-alt" />
+            <i className="fas fa-sign-out-alt" />
             Log out
           </a>
         </React.Fragment>
@@ -86,11 +86,11 @@ class Header extends Component {
     return (
       <React.Fragment>
         <Link to="/login" className="menu-item">
-          <i className="fal fa-sign-in-alt" />
+          <i className="fas fa-sign-in-alt" />
           Login
         </Link>
         <Link to="/register" className="menu-item">
-          <i className="fal fa-hand-peace" />
+          <i className="fas fa-hand-peace" />
           Register
         </Link>
       </React.Fragment>
