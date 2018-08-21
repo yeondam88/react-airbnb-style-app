@@ -53,7 +53,5 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "devDependencies": {
-    "@fortawesome/fontawesome-pro": "^5.2.0"
-  }
+  "devDependencies": {}
 }
