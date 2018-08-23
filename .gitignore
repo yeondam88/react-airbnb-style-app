@@ -26,12 +26,6 @@ yarn-error.log*
 # Ignore all css files
 /src/**/*.css
 
-# env file
-.env
-
-# Google map API Key
-/src/config.js
-
 # Ignore Yarn lock file
 yarn.lock
 
