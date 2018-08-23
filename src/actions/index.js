@@ -56,7 +56,7 @@ export const fetchRentalById = id => dispatch => {
   dispatch(fetchRentalByIdInit());
 
   axios
-    .get(`http://localhost:3001/api/v1/rentals/${id}`)
+    .get(`/api/v1/rentals/${id}`)
     .then(res => res.data)
     .then(rental => dispatch(fetchRentalByIdSuccess(rental)));
 };
