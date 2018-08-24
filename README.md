@@ -13,8 +13,9 @@
 
 # Features
 - CRUD rental property
-- Editing in real time
+- Editing in real time (TODO: need to implment)
 - User authentication
+- Upload image (TODO: need to implement)
 
 
 
