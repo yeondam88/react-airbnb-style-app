@@ -52,12 +52,23 @@ class RentalManageCard extends Component {
           <div className="card-footer">
             Created at {pretifyDate(createdAt)}
             {!wantDelete && (
-              <button
-                onClick={this.showDeleteMenu}
-                className="btn btn-sm btn-danger m-2"
-              >
-                Delete
-              </button>
+              <React.Fragment>
+                <button
+                  onClick={this.showDeleteMenu}
+                  className="btn btn-sm btn-danger m-2"
+                >
+                  Delete
+                </button>
+                <Link
+                  className="btn btn-sm btn-warning ml-2"
+                  to={{
+                    pathname: `/rentals/${_id}`,
+                    state: { isUpdate: true }
+                  }}
+                >
+                  Edit
+                </Link>
+              </React.Fragment>
             )}
             {wantDelete && (
               <div>
