@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import RentalAssets from "./RentalAssets";
 import { toUpperCase, rentalType } from "helpers";
 
+import EditableInput from "components/shared/editable/EditableInput";
+
 class RentalDetailUpdate extends Component {
   render() {
     const { rental } = this.props;
@@ -19,6 +21,7 @@ class RentalDetailUpdate extends Component {
           <span>{rental.user && rental.user.username}</span>
         </div>
         <h1 className="rental-title">{rental.title}</h1>
+        <EditableInput entity={rental} entityField={"title"} />
         <h2 className="rental-city">{toUpperCase(rental.city)}</h2>
         <div className="rental-room-info">
           <span>
