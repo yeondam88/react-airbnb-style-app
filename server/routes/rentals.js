@@ -9,6 +9,8 @@ router.get("/manage", UserCtrl.authMiddleware, RentalCtrl.getUserRentals);
 
 router.get("/:id", RentalCtrl.getRentalById);
 
+router.patch("/:id", UserCtrl.authMiddleware, RentalCtrl.rentalUpdate);
+
 router.delete("/:id", UserCtrl.authMiddleware, RentalCtrl.deleteRentalById);
 
 router.get("", RentalCtrl.getRentals);
