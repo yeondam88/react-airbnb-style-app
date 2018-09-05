@@ -16,13 +16,60 @@ class editableInput extends Component {
     });
   }
 
-  render() {
-    const { value } = this.state;
+  disableEdit = () => {
+    this.setState({
+      isActive: false
+    });
+  };
+
+  enableEdit = () => {
+    this.setState({
+      isActive: true
+    });
+  };
+
+  renderComponentView = () => {
+    const { value, isActive } = this.state;
+    if (isActive) {
+      return (
+        <React.Fragment>
+          <input
+            onChange={event => this.handleChange(event)}
+            type="text"
+            value={value}
+          />
+          <button
+            className="btn btn-sm btn-danger"
+            type="button"
+            onClick={() => this.disableEdit()}
+          >
+            Close
+          </button>
+        </React.Fragment>
+      );
+    }
     return (
-      <div>
-        <input type="text" value={value} />
-      </div>
+      <React.Fragment>
+        <p>{value}</p>
+        <button
+          className="btn btn-sm btn-danger"
+          type="button"
+          onClick={() => this.enableEdit()}
+        >
+          Edit
+        </button>
+      </React.Fragment>
     );
+  };
+
+  handleChange = event => {
+    this.setState({
+      value: event.target.value
+    });
+  };
+
+  render() {
+    return <div>{this.renderComponentView()}</div>;
   }
 }
 
