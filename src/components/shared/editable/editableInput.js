@@ -30,6 +30,7 @@ class editableInput extends Component {
 
   renderComponentView = () => {
     const { value, isActive } = this.state;
+    const { className } = this.props;
     if (isActive) {
       return (
         <React.Fragment>
@@ -37,9 +38,10 @@ class editableInput extends Component {
             onChange={event => this.handleChange(event)}
             type="text"
             value={value}
+            className={className}
           />
           <button
-            className="btn btn-sm btn-danger"
+            className="btn btn-sm btn-danger btn-editable"
             type="button"
             onClick={() => this.disableEdit()}
           >
@@ -50,9 +52,9 @@ class editableInput extends Component {
     }
     return (
       <React.Fragment>
-        <p>{value}</p>
+        <span className={className}>{value}</span>
         <button
-          className="btn btn-sm btn-danger"
+          className="btn btn-sm btn-danger btn-editable"
           type="button"
           onClick={() => this.enableEdit()}
         >
@@ -69,7 +71,7 @@ class editableInput extends Component {
   };
 
   render() {
-    return <div>{this.renderComponentView()}</div>;
+    return <div id="editableComponent">{this.renderComponentView()}</div>;
   }
 }
 
