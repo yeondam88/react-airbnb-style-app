@@ -12,7 +12,9 @@ import {
   LOG_OUT,
   FETCH_USER_BOOKINGS_INIT,
   FETCH_USER_BOOKINGS_SUCCESS,
-  FETCH_USER_BOOKINGS_FAIL
+  FETCH_USER_BOOKINGS_FAIL,
+  UPDATE_RENTAL_SUCCESS,
+  UPDATE_RENTAL_FAIL
 } from "./types";
 
 // RENTALS ACTIONS -------------------------------
@@ -42,6 +44,16 @@ const fetchRentalsFail = errors => ({
   errors
 });
 
+const updateRentalSuccess = updatedRental => ({
+  type: UPDATE_RENTAL_SUCCESS,
+  rental: updatedRental
+});
+
+const updateRentalFail = errors => ({
+  type: UPDATE_RENTAL_FAIL,
+  errors
+});
+
 export const fetchRentals = city => dispatch => {
   const url = city ? `/rentals?city=${city}` : "/rentals";
   dispatch(fetchRentalsInit());
@@ -56,7 +68,7 @@ export const fetchRentalById = id => dispatch => {
   dispatch(fetchRentalByIdInit());
 
   axios
-    .get(`/api/v1/rentals/${id}`)
+    .get(`http://localhost:3001/api/v1/rentals/${id}`)
     .then(res => res.data)
     .then(rental => dispatch(fetchRentalByIdSuccess(rental)));
 };
@@ -65,6 +77,14 @@ export const createRental = rentalData => {
   return axiosInstance
     .post("/rentals", rentalData)
     .then(res => res.data, error => Promise.reject(error.response.data.errors));
+};
+
+export const updateRental = (id, rentalData) => dispatch => {
+  return axiosInstance
+    .patch(`/rentals/${id}`, rentalData)
+    .then(res => res.data)
+    .then(updatedRental => dispatch(updateRentalSuccess(updatedRental)))
+    .catch(({ response }) => dispatch(updateRentalFail(response.data.errors)));
 };
 
 export const deleteRental = id => {

@@ -40,6 +40,7 @@ exports.getRentalById = (req, res) => {
 
 exports.rentalUpdate = (req, res) => {
   const rentalData = req.body;
+  console.log("RentalData:", rentalData);
   const user = res.locals.user;
 
   Rental.findById(req.params.id)
