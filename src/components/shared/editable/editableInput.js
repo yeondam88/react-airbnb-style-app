@@ -28,6 +28,20 @@ class editableInput extends Component {
     });
   };
 
+  update = () => {
+    const { updateEntity, entityField } = this.props;
+    const { value, originValue } = this.state;
+    this.setState({
+      isActive: false
+    });
+
+    if (value !== originValue) {
+      updateEntity({
+        [entityField]: value
+      });
+    }
+  };
+
   renderComponentView = () => {
     const { value, isActive } = this.state;
     const { className } = this.props;
@@ -40,6 +54,13 @@ class editableInput extends Component {
             value={value}
             className={className}
           />
+          <button
+            className="btn btn-sm btn-danger btn-editable"
+            type="button"
+            onClick={event => this.update(event)}
+          >
+            Save
+          </button>
           <button
             className="btn btn-sm btn-danger btn-editable"
             type="button"

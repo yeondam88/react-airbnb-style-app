@@ -15,10 +15,11 @@ class RentalDetail extends Component {
   }
 
   renderRentalDetail = rental => {
+    const id = this.props.match.params.id;
     const { isUpdate } = this.props.location.state || false;
 
     return isUpdate ? (
-      <RentalDetailUpdate rental={rental} />
+      <RentalDetailUpdate rental={rental} id={id} />
     ) : (
       <RentalDetailInfo rental={rental} />
     );

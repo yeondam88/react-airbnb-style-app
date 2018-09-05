@@ -1,10 +1,17 @@
 import React, { Component } from "react";
 import RentalAssets from "./RentalAssets";
 import { toUpperCase, rentalType } from "helpers";
+import { connect } from "react-redux";
 
-import EditableInput from "components/shared/editable/EditableInput";
+import { updateRental } from "actions";
+import EditableInput from "../../shared/editable/editableInput";
 
 class RentalDetailUpdate extends Component {
+  updateRental = rentalData => {
+    const { id } = this.props;
+    this.props.updateRental(id, rentalData);
+  };
+
   render() {
     const { rental } = this.props;
     return (
@@ -20,11 +27,11 @@ class RentalDetailUpdate extends Component {
           />
           <span>{rental.user && rental.user.username}</span>
         </div>
-        <h1 className="rental-title">{rental.title}</h1>
         <EditableInput
           entity={rental}
           entityField={"title"}
           className={"rental-title"}
+          updateEntity={this.updateRental}
         />
         <h2 className="rental-city">{toUpperCase(rental.city)}</h2>
         <div className="rental-room-info">
@@ -46,4 +53,7 @@ class RentalDetailUpdate extends Component {
   }
 }
 
-export default RentalDetailUpdate;
+export default connect(
+  null,
+  { updateRental }
+)(RentalDetailUpdate);
