@@ -3,10 +3,18 @@
   background-color: transparent;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 20px;
   position: absolute;
   z-index: 999;
   top: 0;
+
+  .navbar-brand {
+    img {
+      width: 100px;
+    }
+  }
+
   &>* {
     color: white;
   }
@@ -26,6 +34,7 @@
 .dropdown-menu {
   .dropdown-item {
     font-size: 14px;
+
     &:active {
       background-color: $main-color;
     }
@@ -57,11 +66,13 @@
   .navbar {
     .form-inline {
       flex-flow: nowrap;
+
       .form-control {
         margin-right: 8px;
       }
     }
   }
+
   .navbar-collapse {
     .navbar-nav {
       display: block !important;

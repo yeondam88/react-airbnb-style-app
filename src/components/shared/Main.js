@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 
 const style = {
-  background: `url(${process.env.PUBLIC_URL}/img/main-bg.jpg)`
+  background: `url(${process.env.PUBLIC_URL}/img/hero-bg.jpeg)`
 };
 
 class Main extends Component {

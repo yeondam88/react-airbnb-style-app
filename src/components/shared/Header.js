@@ -102,7 +102,10 @@ class Header extends Component {
     return (
       <nav className="bwm-navbar" style={this.props.style || null}>
         <Link to="/" className="navbar-brand">
-          BookWithMe
+          <img
+            src={process.env.PUBLIC_URL + "/img/logo_transparent.png"}
+            alt="BookWithMe"
+          />
         </Link>
         <div id="navbarNavAltMarkup" className="d-none d-lg-block">
           <div className="navbar-nav ml-auto">
