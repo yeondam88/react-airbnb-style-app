@@ -12,6 +12,18 @@
 
 ### This course is by [Filip Jerga](https://www.udemy.com/practical-angular-react-node-airbnb-style-application/learn/v4/overview). Building Web app with React like Airbnb. Basic functionalities are search and create rental property. And display user bookings and rentals availability to list and remove them.
 
+<p>
+  <img src="react-airbnb-style-app.png" />
+</p>
+
+## Things I've learned
+I've added custom styles and extra features besides on original coures.
+* User authentication
+* CRUD functionalities
+* Sass
+* Backend API development
+* Working with Database(MongoDB)
+
 # Stack list
 - React
 - Redux
