@@ -39,6 +39,13 @@ I've added custom styles and extra features besides on original coures.
 - User authentication
 - Upload image (TODO: need to implement)
 
-
+## Run Locally
+```js
+> git clone https://github.com/yeondam88/react-airbnb-style-app.git
+> npm install
+> npm run start-dev // to start front-end server
+> npm start // to start back-end server
+> npm build // deploy
+```
 
 
