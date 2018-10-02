@@ -4,8 +4,8 @@ import { toUpperCase, rentalType } from "helpers";
 import { connect } from "react-redux";
 
 import { updateRental } from "actions";
-import EditableInput from "../../shared/editable/editableInput";
-import EditableText from "../../shared/editable/editableText";
+import EditableInput from "../../shared/editable/EditableInput";
+import EditableText from "../../shared/editable/EditableText";
 
 class RentalDetailUpdate extends Component {
   updateRental = rentalData => {
