@@ -16,7 +16,6 @@ class RentalDetailUpdate extends Component {
     const { rental } = this.props;
     return (
       <div className="rental">
-        <h1>Update Rental</h1>
         <h2 className={`rental-type ${rental.category}`}>
           {rentalType(rental.shared)} {rental.category}
         </h2>
@@ -33,10 +32,30 @@ class RentalDetailUpdate extends Component {
           className={"rental-title"}
           updateEntity={this.updateRental}
         />
-        <h2 className="rental-city">{toUpperCase(rental.city)}</h2>
+        <EditableInput
+          entity={rental}
+          entityField={"city"}
+          className={"rental-city"}
+          updateEntity={this.updateRental}
+        />
+        <EditableInput
+          entity={rental}
+          entityField={"street"}
+          className={"rental-street"}
+          updateEntity={this.updateRental}
+        />
         <div className="rental-room-info">
           <span>
-            <i className="fa fa-building">{rental.bedrooms} bedrooms</i>
+            <i className="fa fa-building">
+              <EditableInput
+                entity={rental}
+                entityField={"bedrooms"}
+                className={"rental-bedrooms"}
+                containerStyle={{ display: "inline-block" }}
+                updateEntity={this.updateRental}
+              />{" "}
+              bedrooms
+            </i>
           </span>
           <span>
             <i className="fa fa-user">{rental.bedrooms + 4} guests</i>

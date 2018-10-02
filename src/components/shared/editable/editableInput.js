@@ -92,7 +92,11 @@ class editableInput extends Component {
   };
 
   render() {
-    return <div id="editableComponent">{this.renderComponentView()}</div>;
+    return (
+      <div id="editableComponent" style={this.props.containerStyle}>
+        {this.renderComponentView()}
+      </div>
+    );
   }
 }
 
