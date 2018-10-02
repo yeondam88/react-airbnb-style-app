@@ -2,13 +2,6 @@ const Booking = require("../models/booking");
 const Rental = require("../models/rental");
 const User = require("../models/user");
 const { normalizeErrors } = require("../helpers/mongoose");
-const cloudinary = require("cloudinary");
-
-cloudinary.config({
-  cloud_name: "yeondam88",
-  api_key: "168947346965195",
-  api_secret: "XWcRTMdMpO7YoCdFXOf7oQfF_S8"
-});
 
 exports.secret = (req, res) => {
   res.json({ secret: true });
@@ -155,19 +148,13 @@ exports.createRental = (req, res) => {
     dailyRate
   } = req.body;
   const user = res.locals.user;
-  let uploadedImage;
-
-  cloudinary.v2.uploader.upload(image, function(error, result) {
-    uploadedImage = result.url;
-    console.log(result, error);
-  });
 
   const rental = new Rental({
     title,
     city,
     street,
     category,
-    image: uploadedImage,
+    image,
     bedrooms,
     shared,
     description,
