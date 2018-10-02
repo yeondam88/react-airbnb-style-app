@@ -1,14 +1,16 @@
 import React, { Component } from "react";
 import EditableComponent from "./EditableComponent";
 
-class EditableInput extends EditableComponent {
+class EditableText extends EditableComponent {
   renderComponentView = () => {
     const { value, isActive } = this.state;
-    const { className } = this.props;
+    const { className, rows, cols } = this.props;
     if (isActive) {
       return (
         <React.Fragment>
-          <input
+          <textarea
+            rows={rows}
+            cols={cols}
             onChange={event => this.handleChange(event)}
             type="text"
             value={value}
@@ -54,4 +56,4 @@ class EditableInput extends EditableComponent {
   }
 }
 
-export default EditableInput;
+export default EditableText;

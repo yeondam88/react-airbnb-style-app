@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 
 import { updateRental } from "actions";
 import EditableInput from "../../shared/editable/editableInput";
+import EditableText from "../../shared/editable/editableText";
 
 class RentalDetailUpdate extends Component {
   updateRental = rentalData => {
@@ -64,7 +65,17 @@ class RentalDetailUpdate extends Component {
             <i className="fa fa-bed">{rental.bedrooms + 2} beds</i>
           </span>
         </div>
-        <p className="rental-description">{rental.description}</p>
+        <p className="rental-description">
+          <EditableText
+            entity={rental}
+            entityField={"description"}
+            className={"rental-description"}
+            containerStyle={{ display: "inline-block" }}
+            updateEntity={this.updateRental}
+            rows={6}
+            cols={50}
+          />
+        </p>
         <hr />
         <RentalAssets />
       </div>
