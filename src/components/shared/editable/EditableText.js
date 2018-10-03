@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import EditableComponent from "./EditableComponent";
 
 class EditableText extends EditableComponent {
