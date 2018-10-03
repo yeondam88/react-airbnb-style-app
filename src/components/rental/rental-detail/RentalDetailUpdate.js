@@ -4,7 +4,6 @@ import { rentalType } from "helpers";
 import { connect } from "react-redux";
 
 import { updateRental } from "actions";
-import EditableInput from "../../shared/editable/EditableInput";
 
 class RentalDetailUpdate extends Component {
   updateRental = rentalData => {
@@ -26,36 +25,10 @@ class RentalDetailUpdate extends Component {
           />
           <span>{rental.user && rental.user.username}</span>
         </div>
-        <EditableInput
-          entity={rental}
-          entityField={"title"}
-          className={"rental-title"}
-          updateEntity={this.updateRental}
-        />
-        <EditableInput
-          entity={rental}
-          entityField={"city"}
-          className={"rental-city"}
-          updateEntity={this.updateRental}
-        />
-        <EditableInput
-          entity={rental}
-          entityField={"street"}
-          className={"rental-street"}
-          updateEntity={this.updateRental}
-        />
+
         <div className="rental-room-info">
           <span>
-            <i className="fa fa-building">
-              <EditableInput
-                entity={rental}
-                entityField={"bedrooms"}
-                className={"rental-bedrooms"}
-                containerStyle={{ display: "inline-block" }}
-                updateEntity={this.updateRental}
-              />{" "}
-              bedrooms
-            </i>
+            <i className="fa fa-building"> bedrooms</i>
           </span>
           <span>
             <i className="fa fa-user">{rental.bedrooms + 4} guests</i>
