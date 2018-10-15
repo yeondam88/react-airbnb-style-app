@@ -5,7 +5,7 @@ class BwmFileUpload extends Component {
     const {
       input: { onChange }
     } = this.props;
-    onChange("https://source.unsplash.com/random");
+    onChange("https://source.unsplash.com/random/600x400");
   };
 
   render() {
