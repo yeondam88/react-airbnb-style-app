@@ -47,5 +47,7 @@ I've added custom styles and extra features besides on original coures.
 > npm start // to start back-end server
 > npm build // deploy
 ```
-
-
+* [ ] upload image 
+* [ ] edit rentals
+* [ ] payment integration
+* [ ] chat service
